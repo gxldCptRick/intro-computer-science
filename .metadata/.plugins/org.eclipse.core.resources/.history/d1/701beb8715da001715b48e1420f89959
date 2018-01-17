@@ -1,0 +1,143 @@
+package controllers;
+
+import enums.Branch;
+import enums.MonsterDifficulty;
+import lib.ConsoleIO;
+import models.monsters.base.Monster;
+
+public class MainCampaign extends Quest {
+
+
+	public MainCampaign(GameMaster gm) {
+		super(gm, "Main Campaign");
+
+	}
+
+	public void runCampaign() {
+		String[] openingScene = { "You Have Finally Made it...", "Castle Black... the Forbidden Keep...",
+				"You were tasked investigate a disturbance in the region and all your leads brought you here" };
+
+		displayTextBlock(openingScene);
+
+		boolean ready = ConsoleIO.promptForBool("Are You Ready For What Lies Ahead", "Y", "N");
+
+		if (ready) {
+			
+			phaseOne();
+		
+		}else {
+			
+			System.out.println("Come back when you are...");
+
+		}
+	}
+
+	private void phaseOne() {
+
+		String[] openingScene = {
+				"As you apraoch Castle Black, you see a giant moat and two goblins on top of the castle walls manning a drawbridge.",
+				"One of the goblins yells out \"What Business do you have in this place.\"",
+				"What do you want to do." };
+		
+		String[] choices = { "Respond to the goblins", "Look down the moat", "Find another way into the castle.",
+				"Run Away to fight another day" };
+
+		String[][] results = {
+				{ "You attempt to tell the Goblins that you seek the owner of this castle.",
+						" they respond with a very grunt and start to attack you." },
+				{ "You attempt to tell the Goblins that you seek the owner of this castle.",
+						"They allow you to speak to him." },
+				{ "As you are looking down you hear the drawbridge lower and the goblins running towards you.",
+						"The goblins run up and attack you." },
+				{ "As you are looking down you hear the drawbridge lower and the goblins running towards you.",
+						"When the goblins get one look at the determination in your eyes they run away leaving the bridge available to cross" },
+				{ "You try to find another way", "You find another path into the castle but it is guarded by a BugBear",
+						"As you attempt to sneak the BugBear spots you and immediately attacks you." },
+				{ "You try to find another way", "You find another path into the castle but it is guarded by a BugBear",
+						"You sneak past the BugBear and go into the castle unnoticied." },
+				{ "As you begin to Run you hear the drawbridge lower and see a BugBear come rushing down and attacks you" },
+				{ "As you begin to run you feel a strange powerful force coming towards you" } };
+
+		int[] chances = { 70, 60, 60, 10};
+
+		Monster[] currentEnemies = setEnemies(MonsterDifficulty.EASY);
+
+		Branch currentDecision = findBranch(openingScene, choices, results, chances, currentEnemies);
+
+		switch (currentDecision) {
+
+		case SIDE_QUEST:
+
+			runPrisonersOfAlkaTraz();
+
+			break;
+
+		case NEXT_PHASE:
+
+			phaseTwo();
+
+			break;
+
+		case FINAL_PHASE:
+
+			finalPhase();
+
+			break;
+
+		default:
+			throw new IllegalArgumentException("This is not a supported Branch Branch." + currentDecision);
+		}
+	}
+
+	private void phaseTwo() {
+
+		String[] openningScene = {"Finally inside"};
+		
+		String[] choices = {};
+		
+		String[][] results = {{},{},{},{},{},{},{},{}};
+		
+		int[] chances = {30, 40, 60, 10};
+		
+		Monster[] currentEnemies = setEnemies(MonsterDifficulty.MEDIUM);
+		
+		Branch currentDecision = findBranch(openningScene, choices, results, chances, currentEnemies);
+		
+		switch (currentDecision) {
+
+		case SIDE_QUEST:
+
+			break;
+
+		case NEXT_PHASE:
+
+			finalPhase();
+
+			break;
+
+		case FINAL_PHASE:
+
+			finalPhase();
+
+			break;
+
+		default:
+			throw new IllegalArgumentException("This is not a supported Branch Branch." + currentDecision);
+		}
+		
+		
+	}
+
+	private void finalPhase() {
+
+	}
+
+	private void runPrisonersOfAlkaTraz() {
+		
+		(new PrisonerOfAlkaTraz(this.sarah)).run();
+		
+		finalPhase();
+	
+	}
+
+}

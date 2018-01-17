@@ -1,0 +1,55 @@
+package controllers;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import lib.ConsoleIO;
+import models.Card;
+import models.Dealer;
+
+public class Game {
+	
+	private Dealer joffery;
+
+	private Card[] cardsDealt = new Card[52];
+	
+	public void run() {
+	
+		startGame();
+		
+	}
+	
+	private void startGame() {
+	
+		boolean gameActive = true;
+		
+		do {
+			
+			runTurn();
+			
+			gameActive = ConsoleIO.promptForBool("Would You Like To Play Agian? (Y/N)", "Y", "N");
+			
+		}while(gameActive);
+		
+		
+	}
+	
+	private void runTurn() {
+		boolean deckNotEmpty = true;
+		do {
+			
+			drawCard();
+			
+			deckNotEmpty = cardsDealt.contains(null);
+			
+		}while(deckNotEmpty);
+		
+	}
+	
+	private void drawCard() {
+		
+		
+		
+	}
+}

@@ -1,0 +1,32 @@
+package controllers;
+
+import java.util.Random;
+
+import models.monsters.base.Monster;
+
+public class MainCampaign {
+
+	private Monster[] listOfMonsters = new Monster[10];
+	
+	private static Random rnJesus = new Random();
+	
+	private GameMaster sarah;
+	
+	{
+		int str, dex, intel;
+		
+		for(int i = 0; i < listOfMonsters.length - 4; i++) {
+			
+			str = rnJesus.nextInt();
+		}
+	}
+	public MainCampaign(GameMaster gm) {
+		
+		sarah = gm;
+		
+	}
+	
+	public void runCampaign() {
+		sarah.runEncounter(listOfMonsters[0]);
+	}
+}

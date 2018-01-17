@@ -1,0 +1,30 @@
+package scratch;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Scratch {
+//truths
+	// truth 1) Chars are just positive, whole numbers;
+	// truth 2) Strings are really just managed char arrays;
+	
+	public static void run() {
+		
+		
+		
+	}	
+	
+	public static int promptForInt(String prompt, int min, int max) {
+		
+		// print out the prompt
+		// take in  the input
+		// validate the input
+		// go back to the beginning if the input is not valid
+		// return the input if valid
+		
+		
+		return 0;
+	}
+		
+}

@@ -1,0 +1,122 @@
+package models;
+
+import java.util.Random;
+
+public class Die {
+
+	private Random d6DiceRoll = null;
+	private DieValue value = null;
+	private final DieType difficutly;
+	private boolean inUse = false;
+
+	public enum DieValue {
+		BRAIN, SHOT, RUN;
+	}
+
+	public enum DieType {
+		GREEN, RED, YELLOW
+	}
+
+	public void rollDice() {
+
+		int currentRoll = this.d6DiceRoll.nextInt(6);
+
+		this.value = getResult(currentRoll);
+
+	}
+	
+	public boolean getUseState() {
+		
+		return inUse;
+		
+	}
+	
+	public void setUse() {
+		
+		if(this.inUse) {
+		
+			this.inUse = false;
+		
+		}
+		else {
+			
+			this.inUse = true;
+		
+		}
+		
+	}
+	
+	public DieValue getDieValue() {
+		
+		return this.value; 
+
+	}
+	
+	public DieType getDifficutly() {
+		
+		return this.difficutly;
+	
+	}
+
+	private DieValue getResult(int roll) {
+		
+		DieValue valueRolled = null;
+		
+		if (this.difficutly != null) {
+
+			switch (this.difficutly) {
+
+			case GREEN:
+				valueRolled = findDieRange(roll, 3, 5, 6);
+				break;
+
+			case YELLOW:
+				valueRolled = findDieRange(roll, 2, 4, 6);
+				break;
+
+			case RED:
+				valueRolled = findDieRange(roll, 1, 3, 6);
+				break;
+
+			default:
+				break;
+			}
+		} else {
+
+			throw new NullPointerException("Dice Difficulty cannot be null.");
+		}
+		
+		return valueRolled;
+
+	}
+
+	private DieValue findDieRange(int roll, int brainLimit, int runLimit, int shotLimit) {
+		DieValue valueRolled = null;
+		if(roll < brainLimit) {
+			
+			valueRolled = DieValue.BRAIN;
+		
+		}else if(roll < runLimit) {
+			
+			valueRolled = DieValue.RUN;
+	
+		}else if(roll < shotLimit) {
+		
+			valueRolled = DieValue.SHOT;
+			
+		}else {
+		
+			throw new IllegalArgumentException("You must enter a value between 0 - "+ shotLimit +" to find the die value");
+			
+		}
+		
+		return valueRolled;
+	}
+	
+	public Die(DieType currentType) {
+		
+		this.difficutly = currentType;
+		this.d6DiceRoll = new Random();
+	}
+
+}

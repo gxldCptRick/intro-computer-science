@@ -1,0 +1,193 @@
+package app;
+
+import java.util.Scanner;
+
+public class Program {
+
+// checks to see if i can convert string to integer
+	public static boolean isInt(String input) {
+		boolean isInteger = true;
+		try {
+			Integer.parseInt(input);
+		} catch (Exception e) {
+			isInteger = false;
+		}
+
+		return isInteger;
+	}
+// validates input for me 
+	public static boolean validateInput(String input) {
+
+		String[] inputs = input.split(" "), vals;
+
+		for (String val : inputs) {
+
+			vals = val.split("/");
+
+			if (vals.length > 1) {
+				for (String subInput : vals) {
+					if (!isInt(subInput)) {
+						return false;
+					}
+				}
+			} else {
+				if (!isInt(val)) {
+					System.out.println("invalid input");
+					return false;
+				}
+			}
+		}
+
+		return true;
+
+	}
+// process input for me
+	public static Fraction processInput(String input) {
+		Fraction output;
+		int wholeNum = 0, den = 1, num = 0;
+		String[] inputs = input.split(" ", 2), values;
+		for (String value : inputs) {
+			values = value.split("/");
+			if (values.length > 1) {
+
+				num = Integer.parseInt(values[0]);
+				den = Integer.parseInt(values[1]);
+
+			} else
+				wholeNum = Integer.parseInt(value);
+		}
+
+		output = new Fraction(num, den, wholeNum);
+		return output;
+	}
+// process all mathematical output
+	public static void processEquation(Fraction val1, Fraction val2, char operation) {
+		String input1 = val1.toString(), input2 = val2.toString(), outputFrac = "";
+		double outputDec = 0.0;
+		switch(operation) {
+		case '+':
+			val1.add(val2);
+			outputFrac = val1.toString();
+			outputDec = val1.getDecimalVal();
+			break;
+		case '-':
+			val1.subtract(val2);
+			outputFrac = val1.toString();
+			outputDec = val1.getDecimalVal();
+			break;
+		case '/':
+			val1.divide(val2);
+			outputFrac = val1.toString();
+			outputDec = val1.getDecimalVal();
+			break;
+		case '*':
+			val1.multiply(val2);
+			outputFrac = val1.toString();
+			outputDec = val1.getDecimalVal();
+			break;
+		}
+		System.out.println(input1 + " " + operation +" " + input2 + " = " + outputFrac + " or "+ outputDec);
+
+	}
+
+	public static void main(String[] args) {
+
+		boolean active = true, math = true, inputValid = false;
+		String inputString;
+		String[] inputs;
+		char key;
+		Scanner input = new Scanner(System.in);
+		Fraction val1, val2;
+
+		while (active) {
+			System.out.println("Main Menu");
+			System.out.println("Select a Option");
+			System.out.println("1. (Reduce) Fraction");
+			System.out.println("2. (Math) with Fractions");
+			System.out.println("3. (Exit)");
+
+			inputString = input.nextLine();
+
+			if (inputString.equals("reduce") || inputString.equals("Reduce") || inputString.equals("1")) {
+
+				System.out.println("Reducing Fractions");
+				System.out.println("Input fraction to reduce.");
+				inputString = input.nextLine();
+
+				while (!validateInput(inputString)) {
+
+					System.out.println("Please input a valid fraction.");
+					inputString = input.nextLine();
+
+				}
+
+				val1 = processInput(inputString);
+
+				val1.simplify();
+
+				System.out.println(val1.toString() + " " + val1.getDecimalVal());
+
+				inputString = input.nextLine();
+
+			} else if (inputString.equals("math") || inputString.equals("Math") || inputString.equals("2")) {
+				while (math) {
+					System.out.println("Math with Fractions");
+					System.out.println("Select an Option.");
+					System.out.println(
+							"(A)ddition, (S)ubtraction, (M)ultiplication, (D)ivision, (R)eturn to Main Menu, and (E)xit.");
+
+					while (!inputValid) {
+						inputString = input.nextLine();
+						key = inputString.charAt(0);
+						inputValid = true;
+
+						switch (key) {
+						case 'a':
+						case 'A':
+							break;
+						case 's':
+						case 'S':
+							break;
+						case 'm':
+						case 'M':
+							break;
+						case 'd':
+						case 'D':
+							break;
+						case 'r':
+						case 'R':
+							math = false;
+							break;
+						case 'e':
+						case 'E':
+							math = false;
+							active = false;
+							break;
+						default:
+							inputValid = false;
+							System.out.println("please select a valid option");
+							System.out.println(
+									"(A)ddition, (S)ubtraction, (M)ultiplication, (D)ivision, (R)eturn to Main Menu, and (E)xit.");
+						}
+
+					}
+					System.out.println("Would You like To Continue.");
+					System.out.println("Yes or No");
+					inputString = input.nextLine();
+					if(inputString.equals("no")) {
+						
+					}
+
+				}
+			} else if (inputString.equals("exit") || inputString.equals("Exit") || inputString.equals("3")) {
+				active = false;
+				System.out.println("Goodbye");
+			}
+
+		}
+
+		input.close();
+
+	}
+
+}

@@ -1,0 +1,15 @@
+package test1;
+
+public class Program {
+	
+	
+	public static void run() {
+
+		String[] HangMan = {" (0)"," /|\\", "/\\"};
+		for(String body : HangMan) {
+			System.out.println(body);
+		}
+		
+	}
+
+}

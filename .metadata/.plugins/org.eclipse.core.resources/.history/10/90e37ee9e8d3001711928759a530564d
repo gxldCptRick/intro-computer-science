@@ -1,0 +1,50 @@
+package test1;
+
+import lib.ConsoleIO;
+
+public class Program {
+	
+	
+	public static void run() {
+
+		String[] HangMan = {"(0)","/|\\", "/ \\"};
+		
+		rebuildHangMan();
+		
+	}
+	
+	private static void rebuildHangMan() {
+		
+		for(int i = 0; i < 5; i++) {
+		
+			switch(i) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			default:
+				throw new IllegalArgumentException("Fuck this shit im out");
+			
+			
+			}
+			
+			
+			
+			
+		}
+	}
+	
+	private static void buildHangMan(String[] hangMan) {
+		
+		
+		for(String body : hangMan) {
+			System.out.println(body);
+			ConsoleIO.waitForInput();
+		}
+
+	}
+	
+	
+
+}

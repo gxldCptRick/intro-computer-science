@@ -1,0 +1,691 @@
+package controllers;
+
+import enums.TurnAction;
+import enums.monster.Bonus;
+import enums.potions.Type;
+import lib.ConsoleIO;
+import models.dice.DiceBag;
+import models.monsters.*;
+import models.monsters.base.Monster;
+import models.potions.*;
+import models.potions.base.Potion;
+
+/**
+ * <h1>GameMaster Controller Object.</h1>
+ * <p>
+ * this runs a simply RPG.
+ * </p>
+ * 
+ * @author Andres Hermilo Carrera
+ * @since November 24, 2017
+ * @version v1.0
+ */
+public class GameMaster {
+
+	/**
+	 * this is the collection of players in the current game session.
+	 */
+	private Hero[] players;
+
+	/**
+	 * this is the DiceBag object that the Game Master uses.
+	 */
+	private DiceBag steve = new DiceBag();
+
+	/**
+	 * this is the monster that will fight the players.
+	 */
+	private Monster jimmy;
+
+	/**
+	 * this determines whether or not initiative has been rolled yet for the current
+	 * game.
+	 */
+	private boolean initiativeRolled = false;
+
+	/**
+	 * the total amount of turns that have already been run.
+	 */
+	private int totalTurns = 0;
+
+	/**
+	 * this method starts the GameMaster object.
+	 */
+	public void start() {
+		startGame();
+	}
+
+	/**
+	 * this method controls the flow of the game.
+	 */
+	private void startGame() {
+		boolean fightNotFinished = true, fightMoreMonsters = true, newHero = false;
+
+		do {
+
+			createHeros();
+
+			do {
+
+				generateMonster();
+
+				displayGameInfo(monster);
+
+				do {
+
+					for (int i = 0; i < players.length && fightNotFinished; i++) {
+
+						if (players[i].isAlive()) {
+
+							turnOfCombat(players[i]);
+
+						} else {
+
+							fightNotFinished = false;
+
+						}
+
+					}
+
+					totalTurns++;
+
+					fightNotFinished = fightNotFinished ? jimmy.isAlive() : false;
+
+				} while (fightNotFinished);
+
+				if (!jimmy.isAlive()) {
+					System.out.println("You Killed " + jimmy.getName());
+					dropPotions();
+				} else {
+					System.out.println("You have been killed");
+				}
+
+				totalTurns = 0;
+
+				initiativeRolled = false;
+
+				fightMoreMonsters = ConsoleIO.promptForBool("Would You like to fight another monster? (Y/N)", "Y", "N");
+
+				fightNotFinished = fightMoreMonsters;
+
+				newHero = fightMoreMonsters;
+
+				if (fightMoreMonsters && players[0].isAlive()) {
+
+					newHero = ConsoleIO.promptForBool("Would You like to Change Your Hero? (Y/N)", "Y", "N");
+
+				}
+
+			} while (fightMoreMonsters && !newHero);
+
+		} while (newHero);
+	}
+
+	/**
+	 * this method fills the players array with a new hero.
+	 */
+	private void createHeros() {
+
+		players = new Hero[1];
+
+		for (int i = 0; i < players.length; i++) {
+
+			players[i] = setUpHero();
+
+		}
+
+	}
+
+	/**
+	 * this method sets a heros name of a randomly generated hero that has been
+	 * approved by the user.
+	 * 
+	 * @return returns a hero that has been approved and named by the user.
+	 */
+	private Hero setUpHero() {
+
+		boolean notHappy;
+		Hero deku = null;
+
+		do {
+
+			deku = rollHero();
+
+			System.out.println(deku);
+
+			notHappy = ConsoleIO.promptForBool("Are You Happy With This Character? (Y/N)", "N", "Y");
+
+		} while (notHappy);
+
+		String name = getName();
+
+		deku.setName(name);
+
+		return deku;
+	}
+
+	/**
+	 * generates a hero based on randomly rolled attributes.
+	 * 
+	 * @return returns a randomly generated hero.
+	 */
+	private Hero rollHero() {
+		int str = calculateAttr(), dex = calculateAttr(), intel = calculateAttr();
+
+		Hero bakugo = new Hero(str, dex, intel);
+		return bakugo;
+	}
+
+	/**
+	 * this method calculates the amount of potions dropped and adds it to the
+	 * current player in the appropriate array.
+	 */
+	private void dropPotions() {
+
+		int potionsDropped = steve.rollDie(4), healthOrMana, amountStored = 0, amountUsed;
+
+		Potion pot;
+
+		for (int i = 0; i < potionsDropped; i++) {
+
+			healthOrMana = steve.rollDie(2);
+
+			if (healthOrMana == 1) {
+
+				pot = new HealthPotion();
+
+			} else if (healthOrMana == 2) {
+
+				pot = new ManaPotion();
+
+			} else {
+
+				throw new IllegalArgumentException("it cant be... it is out of the random range!?!?!?!?!?!!?");
+
+			}
+
+			boolean stored = players[0].addPotion(pot);
+			if (stored) {
+				amountStored++;
+			}
+		}
+
+		System.out.println(potionsDropped + " potions dropped.");
+
+		System.out.println("Stored " + amountStored + " potions");
+
+		amountUsed = potionsDropped - amountStored;
+
+		if (amountUsed > 0) {
+
+			System.out.println(potionsDropped - amountStored + " potions used.");
+
+		}
+	}
+
+	/**
+	 * this method prompts the user for a name of the hero and if not given one it
+	 * returns "The Unnamed Hero"
+	 * 
+	 * @return returns a name for the hero.
+	 */
+	private String getName() {
+		String name = ConsoleIO.promptForInput("Name Your Character", true);
+
+		name = name.trim();
+
+		if (name.isEmpty()) {
+
+			name = "The Unnamed Hero";
+
+		}
+
+		return name;
+	}
+
+	/**
+	 * calculates an attributes based on a dice rolling recipe.
+	 * 
+	 * @return returns the number for an attribute calculated.
+	 */
+	private int calculateAttr() {
+
+		int baseValue = steve.rollDice(6, 3);
+
+		if (baseValue > 15) {
+
+			int bonus = steve.rollDie(6);
+
+			baseValue += bonus == 6 ? bonus + steve.rollDie(6) : bonus;
+
+		}
+		return baseValue;
+	}
+
+	/**
+	 * this method generates a monster based on a choice made on the user.
+	 */
+	private void generateMonster() {
+		String[] menu = { "Goblin", "BugBear", "Beholder" };
+		int choice = ConsoleIO.promptForMenuSelection(menu, false), str = 0, dex = 0, intel = 0;
+
+		switch (choice) {
+		case 1:
+			str = steve.rollDie(2, 5);
+			dex = steve.rollDie(5, 5);
+			intel = steve.rollDie(5);
+			jimmy = new Goblin(str, dex, intel);
+			break;
+		case 2:
+			str = steve.rollDie(20, 5);
+			dex = steve.rollDie(15, 5);
+			intel = steve.rollDie(5, 5);
+			jimmy = new BugBear(str, dex, intel);
+			break;
+		case 3:
+			str = steve.rollDie(20, 10);
+			dex = steve.rollDie(10, 5);
+			intel = steve.rollDie(10, 30);
+			jimmy = new Beholder(str, dex, intel);
+			break;
+		default:
+			throw new IllegalArgumentException(
+					"You Can't Input an invalid choice but somehow you did steve... i know your name may not be steve but still... fork you steve.");
+		}
+
+	}
+
+	/**
+	 * this method runs a turn of combat based on a single player.
+	 * 
+	 * @param player
+	 *            the current player.
+	 */
+	private void turnOfCombat(Hero player) {
+
+		if (!initiativeRolled && totalTurns % 5 == 0) {
+
+			rollInitiative();
+		}
+
+		displayTurnInfo(player);
+
+		if (player.getInitiative() >= jimmy.getInitiative()) {
+
+			if (player.isAlive()) {
+
+				playerTurn(player);
+
+			}
+
+			if (jimmy.isAlive()) {
+
+				monsterTurn(player);
+
+			}
+
+		} else {
+
+			if (jimmy.isAlive()) {
+
+				monsterTurn(player);
+
+			}
+
+			if (player.isAlive()) {
+
+				playerTurn(player);
+
+			}
+
+		}
+		ConsoleIO.waitForInput();
+
+	}
+
+	/**
+	 * this takes in a target player and performs an attack for the monster based on
+	 * certain conditions.
+	 * 
+	 * @param player
+	 *            the target player.
+	 */
+	private void monsterTurn(Hero player) {
+		String message;
+
+		int attack = steve.rollDie(100);
+
+		if (attack < 71) {
+
+			message = attackEnemy(jimmy, player, jimmy.attackNormal());
+
+		} else {
+
+			message = attackEnemy(jimmy, player, jimmy.attackSpecial());
+
+		}
+
+		System.out.println(message);
+	}
+
+	/**
+	 * this method performs a turn for the player passed in.
+	 * 
+	 * @param player
+	 *            the current player.
+	 */
+	private void playerTurn(Hero player) {
+		boolean haveHealthPots = player.potionsLeft(Type.HEALTH) > 0, haveManaPots = player.potionsLeft(Type.MANA) > 0;
+
+		TurnAction action = displayMenuChoice(haveHealthPots, haveManaPots);
+
+		performAction(player, action);
+	}
+
+	/**
+	 * this method take in a player and action and does the requested action.
+	 * 
+	 * @param player
+	 *            the current player who is directly affected by the action.
+	 * @param action
+	 *            the action that was chosen.
+	 */
+	private void performAction(Hero player, TurnAction action) {
+		String message = "I DONT KNOW YOU";
+		switch (action) {
+		case NORMAL_ATTACK:
+			message = attackEnemy(player, jimmy, player.attackNormal());
+			break;
+		case SPECIAL_ATTACK:
+			message = attackEnemy(player, jimmy, player.attackSpecial());
+			break;
+		case RESTORE_HEALTH:
+			message = playerUsePotion(player, Type.HEALTH);
+			break;
+		case RESTORE_MANA:
+			message = playerUsePotion(player, Type.MANA);
+			break;
+		default:
+			throw new IllegalArgumentException("You added a new non-supported enum.");
+		}
+
+		System.out.println(message);
+	}
+
+	/**
+	 * this method rolls and sets the initiative of every monster in the game.
+	 */
+	private void rollInitiative() {
+
+		int initiative = steve.rollDie(20);
+
+		jimmy.setInitiative(initiative);
+
+		for (Hero player : players) {
+
+			initiative = steve.rollDie(20);
+
+			player.setInitiative(initiative);
+
+		}
+
+	}
+
+	/**
+	 * a method to display a menu with specific actions depending on if there are
+	 * any health potions or mana potions.
+	 * 
+	 * @param healthPots
+	 *            a boolean that determines whether or not there was any health
+	 *            potions.
+	 * @param manaPots
+	 *            a boolean that determines whether or not there were any mana
+	 *            potions.
+	 * @return returns a TurnAction enum.
+	 */
+	private TurnAction displayMenuChoice(boolean healthPots, boolean manaPots) {
+
+		String[] menu;
+
+		TurnAction action = null;
+
+		if (healthPots && manaPots) {
+
+			menu = new String[] { "Perform Normal Attack", "Perform Special Attack", "Use Health Potion",
+					"Use Mana Potion" };
+
+			int choice = ConsoleIO.promptForMenuSelection(menu, false);
+
+			switch (choice) {
+			case 1:
+				action = TurnAction.NORMAL_ATTACK;
+				break;
+			case 2:
+				action = TurnAction.SPECIAL_ATTACK;
+				break;
+			case 3:
+				action = TurnAction.RESTORE_HEALTH;
+				break;
+			case 4:
+				action = TurnAction.RESTORE_MANA;
+				break;
+			default:
+				throw new IllegalArgumentException("You have Somehow Broke my menu selection.");
+			}
+
+		} else if (healthPots) {
+
+			menu = new String[] { "Perform Normal Attack", "Perform Special Attack", "Use Health Potion" };
+
+			int choice = ConsoleIO.promptForMenuSelection(menu, false);
+
+			switch (choice) {
+			case 1:
+				action = TurnAction.NORMAL_ATTACK;
+				break;
+			case 2:
+				action = TurnAction.SPECIAL_ATTACK;
+				break;
+			case 3:
+				action = TurnAction.RESTORE_HEALTH;
+				break;
+			default:
+				throw new IllegalArgumentException("You have Somehow Broke my menu selection.");
+			}
+
+		} else if (manaPots) {
+
+			menu = new String[] { "Perform Normal Attack", "Perform Special Attack", "Use Mana Potion" };
+
+			int choice = ConsoleIO.promptForMenuSelection(menu, false);
+
+			switch (choice) {
+			case 1:
+				action = TurnAction.NORMAL_ATTACK;
+				break;
+			case 2:
+				action = TurnAction.SPECIAL_ATTACK;
+				break;
+			case 3:
+				action = TurnAction.RESTORE_MANA;
+				break;
+			default:
+				throw new IllegalArgumentException("You have Somehow Broke my menu selection.");
+			}
+
+		} else {
+
+			menu = new String[] { "Perform Normal Attack", "Perform Special Attack" };
+
+			int choice = ConsoleIO.promptForMenuSelection(menu, false);
+
+			switch (choice) {
+			case 1:
+				action = TurnAction.NORMAL_ATTACK;
+				break;
+			case 2:
+				action = TurnAction.SPECIAL_ATTACK;
+				break;
+			default:
+				throw new IllegalArgumentException("You have Somehow Broke my menu selection.");
+			}
+
+		}
+
+		return action;
+	}
+
+	/**
+	 * this method uses a potion and creates an output string based on how much it
+	 * restored the specified stat.
+	 * 
+	 * @param player
+	 *            the player that will use the potion.
+	 * @param type
+	 *            the type of potion that will be used
+	 * @return returns a string detailing a player using a potion of the specified
+	 *         type and how much that restored the corresponding stat
+	 */
+	private String playerUsePotion(Hero player, Type type) {
+		String message = "Restored ";
+
+		int statPoints = player.usePotion(type);
+
+		if (type == Type.HEALTH) {
+			message += statPoints + " Heatlh.  ";
+		} else if (type == Type.MANA) {
+			message += statPoints + " Mana.";
+		} else {
+			throw new IllegalArgumentException(
+					"You... you monster... you added a new type without letting me know!?!?!!?");
+		}
+
+		return message;
+	}
+
+	/**
+	 * this runs an attack and checks whether or not the attack landed and if it was
+	 * super-effective or not.
+	 * 
+	 * @param attacker
+	 *            attacking monster.
+	 * @param defender
+	 *            defending monster.
+	 * @param attack
+	 *            the damage from the attack.
+	 * @return returns a string of detailing an attack on a defender.
+	 */
+	private String attackEnemy(Monster attacker, Monster defender, int attack) {
+		int attackRoll, defendRoll, damage;
+		String message = null;
+
+		attackRoll = steve.rollDie(20);
+		defendRoll = steve.rollDie(20);
+
+		if ((attackRoll == 20 && defendRoll == 1) || (attackRoll == 1) || (defendRoll == 1) || (defendRoll == 20)) {
+
+			if (attackRoll == 20 && defendRoll == 1) {
+
+				damage = attack * 4;
+
+				defender.recieveDamage(damage);
+
+				message = "MAX DAMAGE!!!\n";
+
+				message += damageString(attacker.getName(), defender.getName(), damage);
+
+			} else if ((attackRoll == 20 && defendRoll != 1) || (attackRoll != 20 && defendRoll == 1)) {
+
+				damage = attack * 2;
+				if (attackRoll == 20) {
+
+					message = "CRITICAL STRIKE!!!\n";
+
+				} else {
+
+					message = "CRITICAL FAILURE TO DEFEND\n";
+
+				}
+
+				defender.recieveDamage(damage);
+
+				message += damageString(attacker.getName(), defender.getName(), damage);
+
+			} else {
+
+				message = attacker.getName() + " missed their attack.";
+
+			}
+
+		} else {
+
+			attackRoll += attacker.getBonus(Bonus.STRIKE);
+
+			defendRoll += defender.getBonus(Bonus.DODGE);
+
+			if (attackRoll > defendRoll) {
+				damage = attack;
+
+				defender.recieveDamage(damage);
+
+				message = damageString(attacker.getName(), defender.getName(), damage);
+
+			} else {
+				message = attacker.getName() + " missed their attack.";
+			}
+
+		}
+		return message;
+	}
+
+	/**
+	 * this creates and returns a string detailing an attack on a defender.
+	 * 
+	 * @param attacker
+	 *            the attackers name.
+	 * @param defender
+	 *            the defenders name.
+	 * @param damage
+	 *            the amount of damage done.
+	 * @return returns a string of the detailing an attack on a defender with the
+	 *         amount of damage.
+	 */
+	private String damageString(String attacker, String defender, int damage) {
+		String damageString = attacker + " has dealt " + damage + " damage to " + defender;
+
+		return damageString;
+	}
+
+	/**
+	 * displays the current game info by printing out each players full inventory,
+	 * attributes, and state. it also displays the current monsters state.
+	 */
+	private void displayGameInfo(Monster monster) {
+
+		for (Hero player : players) {
+
+			System.out.println(player);
+
+		}
+
+		System.out.println(monster);
+
+		ConsoleIO.waitForInput();
+
+	}
+
+	/**
+	 * this method takes in a player and outputs their name and current state and
+	 * also prints out the opponent monsters state
+	 * 
+	 * @param player
+	 *            the current turns player
+	 */
+	private void displayTurnInfo(Hero player) {
+		System.out.println(
+				player.getName() + ", HP: (" + player.getCurrentHP() + "), MP: (" + player.getCurrentMP() + ")");
+		System.out.println("Inventory:  HealthPotions - (" + player.potionsLeft(Type.HEALTH) + "), ManaPotions - ("
+				+ player.potionsLeft(Type.MANA) + ")");
+		System.out.println(jimmy);
+	}
+}

@@ -1,0 +1,68 @@
+package models;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class DiceCup {
+
+	private static Random randomNumberGenerator = new Random();
+	private static List<Die> diceInCup;
+	private static int greenDice = 6, yellowDice = 4, redDice = 3;
+	private static int amountOfDice = greenDice + yellowDice + redDice;
+
+	public static void initializeDice(int greenDice, int yellowDice, int redDice) {
+	
+		DiceCup.greenDice = greenDice;
+		
+		DiceCup.yellowDice = yellowDice;
+		
+		DiceCup.redDice = redDice;
+	
+	}
+	
+	public static Die getDiceFromCup() {
+		
+		Die dieDrawn;
+		
+		if(diceInCup == null) {
+		
+			initializeCup();
+		
+		}
+		
+		int positionInCup  = randomNumberGenerator.nextInt(diceInCup.size());
+		
+		dieDrawn = diceInCup.get(positionInCup);
+		
+		diceInCup.remove(positionInCup);
+		
+		return dieDrawn;
+
+	}
+	
+	private static void initializeCup() {
+		
+		int middleLimit = greenDice + yellowDice;
+		DiceCup.diceInCup = new ArrayList<Die>();
+		
+		for(int i = 0; i < amountOfDice; i++) {
+			
+			if(i < greenDice) {
+			
+				diceInCup.add(new Die(Die.DieType.GREEN));
+			
+			}else if(i < middleLimit){
+			
+				diceInCup.add(new Die(Die.DieType.YELLOW));
+			
+			}
+			else {
+			
+				diceInCup.add(new Die(Die.DieType.RED));
+			
+			}
+		}
+	}
+
+}

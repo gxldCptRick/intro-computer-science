@@ -1,0 +1,18 @@
+package phoneNumbers;
+
+public class PhoneNumberUS {
+public boolean isValidLong(String longo) {
+	try {
+		Long.parseLong(longo);
+		return true;
+	}catch(NumberFormatException e){
+		return false;
+	}
+}
+public PhoneNumberUS(String rawNum) {
+	if(isValidLong(rawNum)) {
+	long littleYahtty = Long.parseLong(rawNum);
+	}
+	
+}
+}

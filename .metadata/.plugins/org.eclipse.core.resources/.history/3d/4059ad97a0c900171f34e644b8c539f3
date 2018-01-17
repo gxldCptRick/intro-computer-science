@@ -1,0 +1,45 @@
+package models;
+import enums.*;
+public class Die {
+
+	public final DieColor color;
+	private DieFace[] dieFaces = new DieFace[6];
+	private DieFace currentFace;
+	
+	public Die(DieColor color) {
+		
+		this.color = color;
+		
+		switch(this.color) {
+		case GREEN:
+			dieFaces = new DieFace[] {DieFace.BRAIN, DieFace.BRAIN, DieFace.BRAIN, DieFace.RUN, DieFace.RUN, DieFace.SHOT};
+			break;
+		case YELLOW:
+			dieFaces = new DieFace[] {DieFace.BRAIN, DieFace.BRAIN, DieFace.RUN, DieFace.RUN, DieFace.SHOT, DieFace.SHOT};
+			break;
+		case RED:
+			dieFaces = new DieFace[] {DieFace.BRAIN, DieFace.RUN, DieFace.RUN, DieFace.SHOT, DieFace.SHOT, DieFace.SHOT};
+			break;
+		default:
+			break;
+		}
+	
+	}
+	
+	public DieFace roll() {
+		return null;
+	}
+	
+	public DieFace getCurrentFace() {
+		
+		return this.currentFace;
+	}
+	
+	@Override
+	public String toString() {
+		return null;
+	}
+	
+	
+	
+}

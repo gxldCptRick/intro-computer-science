@@ -1,0 +1,32 @@
+package scratch;
+
+import andresIO.AIO;
+
+import models.Dragon;
+
+public class scratch {
+
+	public static void main(String[] args) {
+		Dragon Drogon = new Dragon();
+		
+		String message = Drogon.getName() + ", known for being the color " + Drogon.getColor() + ", is " 
+		+ Drogon.getLengthInMeters() + " meter";
+		
+		if(Drogon.getLengthInMeters() != 0) {
+			
+			message += "s";
+			
+		}
+		message += ".";
+		
+		if(Drogon.doesHaveWings()) {
+			message += "\n" + Drogon.getName() + " has wings.";
+		}
+		else {
+			message += "\n" + Drogon.getName() + " has no wings.";
+		}
+		
+		System.out.println(message);
+	
+	}
+}

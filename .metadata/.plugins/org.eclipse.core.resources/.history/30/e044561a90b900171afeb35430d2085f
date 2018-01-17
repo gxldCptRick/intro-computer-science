@@ -1,0 +1,14 @@
+package phoneNumbers;
+
+public class PhoneNumberUS {
+
+	String number = "(###) - ### - ####";
+
+	public PhoneNumberUS(int number) {
+
+		if (true) {
+			String rawNumber = number + "";
+		}
+	}
+
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="javax.swing.plaf.synth.SynthSeparatorUI"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="andresIO.AIO"/>
+<fullyQualifiedTypeName name="phoneNumbers.PhoneNumberUS"/>
+<fullyQualifiedTypeName name="exceptions.InvalidPhoneNumberException"/>
+<fullyQualifiedTypeName name="models.Dragon"/>
+<fullyQualifiedTypeName name="birthdayCalculator.Date"/>
+<fullyQualifiedTypeName name="lib.SimpleMath"/>
+<fullyQualifiedTypeName name="models.Dice.DieType"/>
+<fullyQualifiedTypeName name="views.Player"/>
+<fullyQualifiedTypeName name="lib.ConsoleIO"/>
+<fullyQualifiedTypeName name="models.Dice"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="models.Dice.DieValue"/>
+<fullyQualifiedTypeName name="models.Die"/>
+<fullyQualifiedTypeName name="models.DiceCup"/>
+<fullyQualifiedTypeName name="models.Die.DieValue"/>
+</qualifiedTypeNameHistroy>

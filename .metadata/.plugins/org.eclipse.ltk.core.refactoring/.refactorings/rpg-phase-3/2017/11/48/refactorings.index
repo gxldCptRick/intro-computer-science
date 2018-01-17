@@ -1,0 +1,29 @@
+1511659539056	Delete element
+1511659687915	Rename type 'DamageType'
+1511670519199	Rename local variable 'weapon'
+1511675465646	Rename field 'type'
+1511675478519	Rename field 'attr'
+1511676613257	Rename local variable 'AR'
+1511735125067	Rename local variable 'startBlock'
+1511748836815	Rename method 'thePrisionerOfAlkatraz'
+1511799103457	Rename local variable 'borrowedFromSarah'
+1511799133027	Rename local variable 'borrowedFromSarah'
+1511802811884	Copy method
+1511802839969	Copy method
+1511880694481	Rename enum constant 'PHASEONE'
+1511880700425	Rename enum constant 'PHASETWO'
+1511880709427	Rename enum constant 'FINALPHASE'
+1511880714933	Rename enum constant 'SIDEQUEST'
+1511881459294	Rename enum constant 'PHASE_TWO'
+1511881628313	Rename compilation unit 'Difficulty.java'
+1511882499992	Copy method
+1511886244461	Rename type 'Spell'
+1511898552155	Rename local variable 'attack'
+1511898573042	Rename local variable 'choice'
+1511898620283	Rename type 'Type'
+1512055411681	Copy field
+1512058238979	Rename local variable 'shrek'
+1512058245600	Rename local variable 'Graug'
+1512060542855	Copy method
+1512062664274	Rename type 'SideQuest'
+1512067184694	Rename type 'PrisnoerOfAlkaTraz'

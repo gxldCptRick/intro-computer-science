@@ -1,0 +1,205 @@
+package controllers;
+
+import enums.potions.Type;
+import lib.ConsoleIO;
+import models.characters.*;
+import models.dice.DiceBag;
+
+public class GameMaster {
+
+	private Hero[] players;
+	private DiceBag steve = new DiceBag();
+	private Monster jimmy;
+	private boolean initiativeRolled = false;
+
+	public void startGame() {
+		boolean fightNotFinished = true, fightMoreMonsters = true, newHero = false;
+		do {
+			createHeros();
+			do {
+				generateMonster();
+				
+				do {
+
+					for (int i = 0; i < players.length && fightNotFinished; i++) {
+						if (players[i].isAlive()) {
+							turnOfCombat();
+						} else {
+
+							fightNotFinished = false;
+
+						}
+					}
+
+					
+					fightNotFinished = fightNotFinished ?  jimmy.isAlive() : false;
+
+				} while (fightNotFinished);
+				
+				initiativeRolled = false;
+
+				fightMoreMonsters = ConsoleIO.promptForBool("Would You like to fight another monster? (Y/N)", "Y", "N");
+
+				newHero = ConsoleIO.promptForBool("Would You like to Change Your Hero? (Y/N)", "Y", "N");
+
+			} while (fightMoreMonsters);
+
+		} while (newHero);
+	}
+
+	private void createHeros() {
+
+		players = new Hero[1];
+
+		for (int i = 0; i < players.length; i++) {
+
+			setUpHero(i);
+
+		}
+
+	}
+
+	private void setUpHero(int index) {
+
+		boolean notHappy;
+		Hero deku = null;
+
+		do {
+
+			deku = rollHero();
+			System.out.println(deku);
+			notHappy = ConsoleIO.promptForBool("Are You Happy With This Character? (Y/N)", "N", "Y");
+
+		} while (notHappy);
+
+		String name = getName();
+
+		deku.setName(name);
+
+		players[index] = deku;
+	}
+
+	private Hero rollHero() {
+		int str = calculateAttr(), dex = calculateAttr(), intel = calculateAttr();
+
+		Hero bakugo = new Hero(str, dex, intel);
+		return bakugo;
+	}
+
+	private String getName() {
+		String name = ConsoleIO.promptForInput("Name Your Character", false);
+
+		name = name.trim();
+
+		if (name.isEmpty()) {
+
+			name = "The Unnamed Hero";
+
+		}
+
+		return name;
+	}
+
+	private int calculateAttr() {
+
+		int baseValue = steve.rollDice(6, 3);
+
+		if (baseValue > 15) {
+
+			int bonus = steve.rollDie(6);
+
+			baseValue += bonus == 6 ? bonus + steve.rollDie(6) : bonus;
+
+		}
+		return baseValue;
+	}
+
+	private void generateMonster() {
+		String[] menu = { "Goblin", "BugBear", "Beholder" };
+		int choice = ConsoleIO.promptForMenuSelection(menu, false);
+
+		switch (choice) {
+		case 1:
+			jimmy = new Goblin();
+			break;
+		case 2:
+			jimmy = new BugBear();
+			break;
+		case 3:
+			jimmy = new Beholder();
+			break;
+		default:
+			throw new IllegalArgumentException(
+					"You Can't Input an invalid choice but somehow you did steve... i know your name may not be steve but still... fork you steve.");
+		}
+
+	}
+
+	private void turnOfCombat() {
+	
+		if(!initiativeRolled) {
+			rollInitiative();
+		}
+		
+		displayTurnInfo();
+		
+		displayMenuChoice();
+		
+	}
+	
+	private void rollInitiative() {
+		
+		int initiative = steve.rollDie(20) + 1;
+		
+		jimmy.setInitiative(initiative);
+		
+		for(Hero player : players) {
+			
+			initiative = steve.rollDie(20) + 1;
+			
+			player.setInitiative(initiative);
+			
+		}
+		
+	}
+
+	private void displayMenuChoice() {
+		StringBuilder menuString = new StringBuilder("Perform Normal Attack, Perform Special Attack");
+		
+		if(players[0].potionsLeft((players[0].getPotions(Type.HEALTH))) != 0) {
+			
+			menuString.append("Use Health Potion");
+		}
+		
+		if(players[0].potionsLeft((players[0].getPotions(Type.MANA))) != 0) {
+			
+			menuString.append("Use Mana Potion");
+			
+		}
+		
+		String[] menu = menuString.toString().split(", ");
+		
+		pickMenuItem(menu);
+	}
+	
+	private void pickMenuItem(String[] menu) {
+	
+		
+		
+	}
+	
+	
+	private void displayTurnInfo() {
+		
+		for(Hero player : players) {
+		
+			System.out.println(player);
+			
+			ConsoleIO.waitForInput();
+		
+		}
+		
+		System.out.println(jimmy);
+		
+	}
+}

@@ -1,0 +1,18 @@
+package numberGuessingGame;
+
+public class Program {
+
+	public static void start() {
+
+		int randNum = (int) Math.floor(Math.random() * 10);
+		
+		
+		
+	}
+
+	public static void main(String[] args) {
+		start();
+
+	}
+
+}

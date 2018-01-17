@@ -1,0 +1,37 @@
+package controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import models.Card;
+import models.Dealer;
+
+public class Game {
+	
+	private Dealer joffery;
+
+	private List<Card> cardsDealt = new ArrayList<Card>();
+	
+	public void run() {
+	
+		startGame();
+		
+	}
+	
+	private void startGame() {
+	
+		boolean gameActive = true;
+		
+		do {
+			
+			gameActive = ConsoleIO.promptForBool("Would You Like To Play Agian? (Y/N)", "Y", "N");
+			
+		}while(gameActive);
+		
+		
+	}
+	
+	private void drawCard() {
+		
+	}
+}

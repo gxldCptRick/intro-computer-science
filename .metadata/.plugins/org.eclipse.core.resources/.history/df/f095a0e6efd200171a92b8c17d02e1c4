@@ -1,0 +1,23 @@
+package controllers;
+
+import models.monsters.base.Monster;
+
+public class MainCampaign {
+
+	private Monster[] listOfMonsters = new Monster[10];
+	
+	private GameMaster sarah;
+	
+	{
+		
+	}
+	public MainCampaign(GameMaster gm) {
+		
+		sarah = gm;
+		
+	}
+	
+	public void runCampaign() {
+		sarah.runEncounter(listOfMonsters[0]);
+	}
+}

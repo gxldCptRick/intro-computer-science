@@ -1,0 +1,10 @@
+package models;
+
+public class Movie {
+	
+	public static String title;
+	public static int durationInMinutes;
+	public static String director;
+	public static String mpaaRating;
+
+}

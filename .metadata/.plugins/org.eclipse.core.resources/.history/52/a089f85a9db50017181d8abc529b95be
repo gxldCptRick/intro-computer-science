@@ -1,0 +1,26 @@
+package numberGuessingGame;
+
+public class Program {
+
+	public static boolean menu() {
+		return true;
+	}
+	public static void start() {
+		int randNum = (int) Math.floor(Math.random() * 10);
+		boolean active = true, validInput;
+		String input;
+		do {
+			
+			
+				
+			
+		}while(active);
+		
+	}
+
+	public static void main(String[] args) {
+		start();
+
+	}
+
+}

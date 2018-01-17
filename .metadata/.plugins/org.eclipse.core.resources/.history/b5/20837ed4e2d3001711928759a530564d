@@ -1,0 +1,52 @@
+package test1;
+
+import java.util.Locale;
+
+public class Program {
+	public static void run() {
+
+		String orig = " we are   currently   doing a    dumbed-down   version of   Dungeons &   Dragons.";
+		String[] words = orig.split("");
+		System.out.println(orig);
+
+		for (String word : words) {
+			System.out.println(word);
+		}
+		System.out.println("\n" + words.length);
+		
+		// 
+		char[] chars = orig.toCharArray();
+		// change charcter to chars
+		String alternate = new String(chars);
+
+		/// upi cma super size
+		String big = orig.toUpperCase();
+		
+		String small = orig.toLowerCase();
+		
+		String sub = orig.substring(10, 20);
+		
+		System.out.println("\n" + orig);
+		System.out.println(sub);
+		
+		// you can replace the bad with the good 
+		String replaced = orig.replace('d','z');
+		replaced = replaced.replace('D', 'Z');
+		System.out.println(replaced);
+		
+		String s1 = "apple";
+		
+		String s2 = "Apple";
+		
+		System.out.println("Compare s1 to s2: " + (s1.compareTo(s2)));
+		
+	}
+
+	// create a method that takes in a string and returns its word count
+
+	private static int getWordCount(String input) {
+		String[] words = input.trim().split(" ");
+		return words.length;
+
+	}
+}

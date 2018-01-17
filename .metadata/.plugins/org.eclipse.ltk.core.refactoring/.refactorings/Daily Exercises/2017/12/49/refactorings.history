@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;interalId&apos; in &apos;models.Student&apos; to &apos;internalId&apos;&#x0D;&#x0A;- Original project: &apos;Daily Exercises&apos;&#x0D;&#x0A;- Original element: &apos;models.Student.interalId&apos;&#x0D;&#x0A;- Renamed element: &apos;models.Student.internalId&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;interalId&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;models{Student.java[Student^interalId" name="internalId" references="true" setter="false" stamp="1512506223324" textual="false" version="1.0"/>
+</session>

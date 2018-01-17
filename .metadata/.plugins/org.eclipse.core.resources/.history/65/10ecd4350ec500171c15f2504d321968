@@ -1,0 +1,255 @@
+package controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import lib.ConsoleIO;
+import models.DiceCup;
+import models.Die;
+import views.Player;
+
+public class Game {
+
+	private static Die[] hand;
+	private static Player[] players;
+	private static List<Die> table;
+	private static int brainCount;
+	private static int shotCount;
+	
+	public static void runGame() {
+
+		boolean gameActive = true;
+
+		do {
+			
+			setUpGame();
+			boolean endGameNotTriggered = true;
+			int turn = 0;
+
+			do {
+
+				endGameNotTriggered = players[turn].getBrainCount() < 13;
+				boolean isTurn = players[turn].getTurn();
+
+				if (isTurn) {
+
+					runTurn(players[turn]);
+
+					if (turn < players.length - 1) {
+
+						players[turn + 1].setTurn(true);
+					} else {
+						players[0].setTurn(true);
+					}
+
+				}
+
+				if (turn == players.length - 1) {
+					turn = 0;
+				} else {
+
+					turn++;
+				}
+
+			} while (endGameNotTriggered);
+			
+			announceWinner(players);
+
+			gameActive = ConsoleIO.promptForBool("Would you like to play again? (Y/N)", "y", "n");
+
+		} while (gameActive);
+	}
+	
+	private static void setUpGame() {
+		int amountOfPlayers = 0;
+		
+		amountOfPlayers = ConsoleIO.promptForInt("How many Players would you like to have\nplease choose between 2 - 4 players",2 ,4);
+		
+		players = new Player[amountOfPlayers];
+		hand = new Die[3];
+		table = new ArrayList<Die>();
+		brainCount = 0;
+		shotCount = 0;
+
+		for (int i = 0; i < players.length; i++) {
+
+			players[i] = setPlayer(i + 1);
+
+		}
+
+		players[0].setTurn(true);
+	}
+	
+	private static void announceWinner(Player[] players) {
+		
+		Player winner  = calculateWinner(players);
+		
+		System.out.println(winner.getName() + " Has won with a total of " + winner.getBrainCount() + " brains.");
+	
+	}
+
+	private static Player calculateWinner(Player[] players) {
+		Player winner = players[0];
+		
+		for(Player person: players) {
+			
+			if(person.getBrainCount() > winner.getBrainCount()) {
+		
+				winner = person;
+			
+			}
+		
+		}
+		
+		return winner;
+	}
+	
+	private static Player setPlayer(int playNum) {
+
+		String name = ConsoleIO.promptForInput("Please input your name for Player" + playNum, true);
+
+		Player newPlayer = name.isEmpty() ? new Player("Player" + playNum) : new Player(name);
+
+		return newPlayer;
+	}
+
+	private static void rollDiceInHand() {
+
+		for (int i = 0; i < hand.length; i++) {
+
+			hand[i].rollDice();
+
+		}
+	}
+
+	private static void countTotalForDice() {
+		for (int i = 0; i < hand.length; i++) {
+
+			switch (hand[i].getDieValue()) {
+
+			case BRAIN:
+
+				brainCount++;
+				Game.table.add(hand[i]);
+				break;
+
+			case SHOT:
+				Game.table.add(hand[i]);
+				shotCount++;
+
+				break;
+
+			default:
+
+				break;
+
+			}
+		}
+
+	}
+
+	private static void printDiceValues(Player currentPlayer) {
+		
+		System.out.println(currentPlayer.getName() + " is Currently Rolling.");
+		
+		for (Die die : hand) {
+
+			System.out.println(die.getDifficutly() + " rolled " + die.getDieValue());
+
+		}
+	
+	}
+
+	private static void turnStart(Player currentPlayer) {
+
+		for (int i = 0; i < hand.length; i++) {
+
+			hand[i] = DiceCup.getDiceFromCup();
+
+		}
+
+		rollDiceInHand();
+
+		countTotalForDice();
+
+		printDiceValues(currentPlayer);
+	}
+
+	private static void turnEnd(Player currentPlayer) {
+
+		if (shotCount < 3) {
+			System.out.println(currentPlayer.getName() + " Collected " + brainCount + " This round.");
+			currentPlayer.addBrains(brainCount);
+			
+		}
+		else {
+			
+			System.out.println(currentPlayer.getName() + " has took "+ shotCount + " shot(s) and got no brains.");
+			
+		}
+		System.out
+		.println(currentPlayer.getName() + " has collected " + currentPlayer.getBrainCount() + " so far.");
+
+		currentPlayer.setTurn(false);
+		shotCount = 0;
+		brainCount = 0;
+	}
+
+	private static void runTurn(Player currentPlayer) {
+		boolean turnActive = true, isNotRun = false;
+		turnStart(currentPlayer);
+
+		do {
+			System.out.println("You have Been shot " + shotCount + " time(s)");
+			System.out.println("You have a possiblity of gaining " + brainCount + " brain(s) this round.");
+			
+			turnActive = shotCount < 3 && ConsoleIO.promptForBool(
+					"Would you like to keep rolling for more brains but,\nhave a chance of losing the brains you have?(Y/N)\n", "y",
+					"n");
+
+			if (turnActive) {
+
+				for (int i = 0; i < hand.length; i++) {
+
+					isNotRun = hand[i].getDieValue() != Die.DieValue.RUN;
+
+					if (isNotRun) {
+						
+						if(DiceCup.getDiceLeftInCup() != 0) {
+							
+							hand[i] = DiceCup.getDiceFromCup();
+						
+						}else {
+							for(int d = 0; d < table.size(); d++) {
+								
+								if(table.get(d).getDieValue() == Die.DieValue.BRAIN) {
+								
+									table.get(d).setUse();
+									
+									System.out.println("Adding Brains into cup so that you can keep rolling");
+								
+								}
+								
+								hand[d] = DiceCup.getDiceFromCup();
+							}
+						}
+						
+
+					}
+
+				}
+
+				rollDiceInHand();
+
+				countTotalForDice();
+
+				printDiceValues(currentPlayer);
+			}
+
+		} while (turnActive);
+
+		turnEnd(currentPlayer);
+
+	}
+
+}

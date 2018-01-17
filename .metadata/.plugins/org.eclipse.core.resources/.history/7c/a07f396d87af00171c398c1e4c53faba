@@ -1,0 +1,90 @@
+package scratch;
+
+import java.util.Scanner;
+
+public class scratch {
+	public static int processString(String s1) {
+		try {
+			int val = Integer.parseInt(s1);
+			return val;
+		} catch (Exception e) {
+			return 0;
+		}
+
+	}
+
+	public static void main(String[] args) {
+		Scanner scanLee = new Scanner(System.in);
+
+		int selection = 0;
+
+		String opt = "name", opt2 = "date", opt3 = "activity", errorMessage = "please write a valid option", input;
+
+		System.out.println("1. (" + opt + ")");
+		System.out.println("2. (" + opt2 + ")");
+		System.out.println("3. (" + opt3 + ")");
+
+		input = scanLee.nextLine();
+
+		selection = processString(input);
+
+		if (selection == 0) {
+
+			switch (selection) {
+
+			case 1:
+
+				System.out.println(opt);
+
+				break;
+
+			case 2:
+
+				System.out.println(opt2);
+
+				break;
+
+			case 3:
+
+				System.out.println(opt3);
+
+				break;
+
+			case 24:
+
+				System.out.println("Twenty-fo fo sho");
+
+				break;
+
+			default:
+
+				System.out.println(errorMessage);
+			}
+
+		} 
+		else {
+			
+			if (input == opt) {
+				
+				System.out.println(opt);
+			
+			} 
+			else if (input == opt2) {
+				
+				System.out.println(opt2);
+			
+			}
+			else if (input == opt3) {
+				
+				System.out.println(opt3);
+			
+			} 
+			else {
+				
+				System.out.println(errorMessage);
+			
+			}
+		}
+
+	}
+}

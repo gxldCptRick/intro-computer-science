@@ -1,0 +1,42 @@
+command=C\:\\Program Files\\Java\\jdk1.8.0_131\\bin\\javadoc.exe
+content_assist_disabled_computers=org.eclipse.jdt.ui.textProposalCategory\u0000org.eclipse.mylyn.java.ui.javaAllProposalCategory\u0000org.eclipse.recommenders.calls.rcp.proposalCategory.templates\u0000org.eclipse.jdt.ui.javaAllProposalCategory\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\u0000org.eclipse.recommenders.chain.rcp.proposalCategory.chain\u0000
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.lang.Enum"><rhs name\="models.Die$DieColor"/><rhs name\="models.Die$DieFace"/><rhs name\="enums.Suit"/><rhs name\="enums.DieFace"/><rhs name\="enums.Attribute"/><rhs name\="enums.characters.Bonus"/><rhs name\="enums.Spells.SpellType"/></lhs><lhs name\="models.Die$DieColor"><rhs name\="models.Die$DieColor"/></lhs><lhs name\="models.Die$DieFace"><rhs name\="models.Die$DieFace"/></lhs><lhs name\="enums.Suit"><rhs name\="enums.Suit"/></lhs><lhs name\="enums.DieFace"><rhs name\="enums.DieFace"/></lhs><lhs name\="enums.Attribute"><rhs name\="enums.Attribute"/></lhs><lhs name\="enums.characters.Bonus"><rhs name\="enums.characters.Bonus"/></lhs><lhs name\="enums.Spells.SpellType"><rhs name\="enums.Spells.SpellType"/></lhs></history>
+content_assist_number_of_computers=24
+content_assist_proposals_background=255,255,255
+content_assist_proposals_foreground=0,0,0
+eclipse.preferences.version=1
+java_bracket=200,134,219
+java_comment_task_tag=168,0,0
+java_doc_default=0,128,0
+java_doc_keyword=255,128,64
+java_doc_link=128,128,64
+java_doc_tag=128,255,255
+java_keyword=135,129,245
+java_keyword_return=0,128,255
+java_multi_line_comment=37,90,84
+java_multi_line_comment_bold=true
+java_multi_line_comment_italic=true
+java_single_line_comment=0,255,255
+org.eclipse.jdt.internal.ui.navigator.layout=2
+org.eclipse.jdt.internal.ui.navigator.librariesnode=true
+org.eclipse.jdt.ui.formatterprofiles.version=13
+org.eclipse.jdt.ui.text.code_templates_migrated=true
+org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+org.eclipse.jdt.ui.text.templates_migrated=true
+semanticHighlighting.abstractClass.color=53,105,125
+semanticHighlighting.localVariable.color=103,149,190
+spelling_ignore_ampersand_in_properties=true
+spelling_ignore_digits=true
+spelling_ignore_java_strings=true
+spelling_ignore_mixed=true
+spelling_ignore_non_letters=true
+spelling_ignore_sentence=true
+spelling_ignore_single_letters=true
+spelling_ignore_upper=true
+spelling_ignore_urls=true
+spelling_locale_initialized=true
+spelling_user_dictionary=C\:\\Users\\Andres\\Documents\\AndresCUserDictionary.txt
+spelling_user_dictionary_encoding=
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

@@ -1,0 +1,15 @@
+package test1;
+
+import java.util.Locale;
+
+public class Program {
+	
+	
+	public static void run() {
+
+		String[] HangMan = {" 0 ","/|\\", "/\\"};
+		
+		
+	}
+
+}

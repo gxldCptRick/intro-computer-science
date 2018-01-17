@@ -1,0 +1,42 @@
+package models;
+
+import java.util.Random;
+
+public class Dice {
+
+	private Random d6DiceRoll = new Random();
+	private Type difficutly;
+	private enum Type {
+		GREEN, RED, YELLOW
+	}
+
+	public String rollDice() {
+		int currentRoll = this.d6DiceRoll.nextInt(6);
+		findOutput(currentRoll);
+		return "";
+	}
+
+	private String findOutput(int value) {
+		String output = null;
+		if(difficutly == Type.GREEN) {
+		switch(value) {
+		case 0:
+		case 1: 
+		case 2: 
+			output = "brains";
+			break;
+		case 3:
+		case 4:
+			output = "run";
+			break;
+		case 5:
+			output = "shot";
+			break;
+		default:
+			break;
+		}
+		}
+		return output;
+	}
+
+}

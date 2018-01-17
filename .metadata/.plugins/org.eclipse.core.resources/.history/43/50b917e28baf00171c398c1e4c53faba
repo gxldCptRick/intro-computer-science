@@ -1,0 +1,76 @@
+package scratch;
+
+import java.util.Scanner;
+
+public class scratch {
+	public static int processString(String s1) {
+		try {
+
+			return Integer.parseInt(s1);
+
+		} catch (Exception e) {
+
+			return 0;
+
+		}
+
+	}
+
+	public static void main(String[] args) {
+		Scanner scanLee = new Scanner(System.in);
+
+		int selection = 1;
+		
+		boolean goodJob = true;
+		
+		String opt = "name", opt2 = "date", opt3 = "activity", errorMessage = "invalid option", input = "",
+				response = "you chose ";
+		while (!input.equals("what does the fox say")) {
+			System.out.println("1. (" + opt + ")");
+			System.out.println("2. (" + opt2 + ")");
+			System.out.println("3. (" + opt3 + ")");
+
+			input = scanLee.nextLine();
+
+			selection = processString(input);
+
+
+				switch (selection) {
+
+				case 1:
+
+					response += opt;
+
+					break;
+
+				case 2:
+
+					response += opt2;
+
+					break;
+
+				case 3:
+
+					response += opt3;
+
+					break;
+
+				case 24:
+
+					response += "twenty-fo fo sho";
+
+					break;
+
+				default:
+
+					response += errorMessage;
+				}
+				
+				if(selection < 3 && selection > 0)
+					response += " GoodJob";
+				else
+					response += "\n Wow you had to go there you \n you had to do it didnt you\n are you happy with yourself";
+			System.out.print(response);
+		}
+	}
+}

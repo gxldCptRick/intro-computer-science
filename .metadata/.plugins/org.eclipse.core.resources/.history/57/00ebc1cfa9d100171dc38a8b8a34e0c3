@@ -1,0 +1,11 @@
+package enums.items;
+
+public enum DamageType {
+DAGGER(4, 1, 0),
+SHORT_SWORD(6, 1, 0),
+BROAD_SWORD(6, 2, 1);
+	public final int dieSize;
+	private DamageType(int dieSize, int amountOfDice, int bonus) {
+		this.dieSize = dieSize;
+	}
+}

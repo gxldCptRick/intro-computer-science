@@ -1,0 +1,133 @@
+package models;
+
+import java.util.Random;
+
+public class Dice {
+
+	private Random d6DiceRoll = null;
+	private DieValue value = null;
+	private DieType difficutly = null;
+
+	public enum DieValue {
+		BRAIN, SHOT, RUN;
+	}
+
+	public enum DieType {
+		GREEN, RED, YELLOW
+	}
+
+	public void rollDice() {
+
+		int currentRoll = this.d6DiceRoll.nextInt(6);
+
+		findDieValue(currentRoll);
+
+	}
+	public String getDieValue() {
+		return this.value.toString(); 
+	}
+
+	private void findDieValue(int value) {
+
+		if (this.difficutly != null) {
+
+			switch (this.difficutly) {
+
+			case GREEN:
+
+				if (value >= 0 && value < 3) {
+
+					this.value = DieValue.BRAIN;
+
+				}
+
+				else if (value >= 3 && value < 5) {
+
+					this.value = DieValue.RUN;
+				
+				}
+
+				else if (value == 5) {
+
+					this.value = DieValue.SHOT;
+				
+				}
+				else {
+					
+					throw new IllegalArgumentException("You must enter a value between 0 - 5 to find the die value");
+				
+				}
+
+				break;
+
+			case YELLOW:
+
+				if (value >= 0 && value < 2) {
+
+					this.value = DieValue.BRAIN;
+
+				}
+
+				else if (value >= 2 && value < 4) {
+
+					this.value = DieValue.RUN;
+
+				}
+
+				else if (value >= 4 && value <= 5) {
+
+					this.value = DieValue.SHOT;
+
+				}
+				else {
+					
+					throw new IllegalArgumentException("You must enter a value between 0 - 5 to find the die value");
+				
+				}
+
+				break;
+
+			case RED:
+				
+				if (value == 0) {
+
+					this.value = DieValue.BRAIN;
+
+				}
+
+				else if (value > 0 && value < 3) {
+
+					this.value = DieValue.RUN;
+
+				}
+
+				else if (value >= 3 && value <= 5) {
+
+					this.value = DieValue.SHOT;
+
+				}
+				else {
+					
+					throw new IllegalArgumentException("You must enter a value between 0 - 5 to find the die value");
+				
+				}
+				
+				break;
+
+			default:
+				break;
+			}
+		} else {
+
+			throw new NullPointerException("Dice Difficulty cannot be null.");
+		}
+
+	}
+
+	public Dice(DieType currentType) {
+		
+		this.difficutly = currentType;
+		this.d6DiceRoll = new Random();
+	}
+
+}

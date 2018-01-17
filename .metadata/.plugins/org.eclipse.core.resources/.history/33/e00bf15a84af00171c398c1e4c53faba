@@ -1,0 +1,62 @@
+package scratch;
+
+import java.util.Scanner;
+
+public class scratch {
+
+	public static void main(String[] args) {
+		Scanner scanLee = new Scanner(System.in);
+		String input;
+		int selection = 0;
+		/*
+		 * if Statements always start with if followed by parens and curly braces parens
+		 * an else cannot exist without an if first
+		 * must hold a boolean eval boolean literals... but it's dumb boolean
+		 * variables.... and this is common equality or comparison operation (==, !=, >,
+		 * <, >=, <=; 'primitives') method that returns a boolean (.equals() for String)
+		 */
+
+		/*
+		 * if single sometimes path
+		 * if-if - multiple "sometimes" paths 
+		 * if-else - dual exclusive paths 
+		 * if-else-if - dual exclulsive "sometimes paths" 
+		 * if-else-if-else - multiple exclusive paths
+		 */
+		/*
+		 * java Universe Rule when comparing Strings, you Must use the .equals() method
+		 */
+		
+	//	System.out.println("1. (name)");
+		//System.out.println("2. (date)");
+	//	System.out.println("3. (activity)");
+		
+	//	switch(selection) {
+	//	case 1:
+	//		System.out.println("name");
+	//		break;
+	//	case 2:
+	//		System.out.println("date");
+	//		break;
+	//	case 3:
+	//		System.out.println("activity");
+	//		break;
+	//	default: 
+	//		System.out.println("Wrong Choice");
+	//	}
+		
+		
+		
+		System.out.print("Please Enter Whole Num: ");
+		selection = Integer.parseInt(scanLee.nextLine());
+		
+		if((selection % 2) == 0) {
+			System.out.println("number is Even");
+		}
+		else {
+			System.out.println("number is odd");
+		}
+		
+
+	}
+}

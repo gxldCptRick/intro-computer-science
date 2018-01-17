@@ -1,0 +1,31 @@
+package app;
+
+public class Program {
+	
+	//Data Fields
+	//data field variable
+	//Declare and initialize a class variable of type String called greeting
+	
+	public static String greeting = "Hola";
+	
+	//data field constant 
+		//no dealing with constants yet
+	
+	// method and/or Function
+	public static void main(String[] args) {
+		
+		//local variables
+		//declare and initialize a local variable of type string called name with your name
+		String name = "Hermoine";
+		System.out.println(greeting + " " + name);
+		System.out.println(name);
+		
+		//change the value of name to begin with your preferred prefix pronoun
+		
+		name = "Mr. Bond";
+		System.out.println(name);
+		
+		
+	}
+	
+}

@@ -1,0 +1,31 @@
+package models;
+
+import java.util.Random;
+
+public class Dice {
+
+	private Random d6DiceRoll = new Random();
+	private enum type {GREEN, RED, YELLOW}
+	
+	public String rollDice() {
+		this.d6DiceRoll.nextInt(6);
+		
+		
+		
+		return "";
+	}
+	
+	private String findOutput(int value) {
+		String output;
+		
+		switch(value) {
+		case 1: 
+		case 2: 
+		case 3:
+		case
+		
+		}
+	}
+	
+
+}

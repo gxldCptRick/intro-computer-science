@@ -1,0 +1,80 @@
+package models;
+
+import java.util.Random;
+
+public class DiceCup {
+
+	private static Random randomNumberGenerator = new Random();
+	private static Die[] diceInCup;
+	private static int greenDice = 6, yellowDice = 4, redDice = 3;
+	private static int amountOfDice = greenDice + yellowDice + redDice;
+
+	public static void initializeDice(int greenDice, int yellowDice, int redDice) {
+	
+		DiceCup.greenDice = greenDice;
+		
+		DiceCup.yellowDice = yellowDice;
+		
+		DiceCup.redDice = redDice;
+	
+		DiceCup.amountOfDice = greenDice + yellowDice + redDice;
+		
+		DiceCup.initializeCup();
+		
+	}
+	
+	public static Die[] getDiceInCup() {
+		
+		return diceInCup;
+		
+	}
+	
+	public static int getDiceLeftInCup() {
+		
+		return diceInCup.length;
+	
+	} 
+	
+	public static Die getDiceFromCup() {
+		
+		Die dieDrawn;
+		
+		if( diceInCup  == null) {
+		
+			initializeCup();
+		
+		}
+		
+		int positionInCup  = randomNumberGenerator.nextInt(diceInCup.length);
+		
+		dieDrawn = diceInCup[positionInCup];
+		
+		return dieDrawn;
+
+	}
+	
+	private static void initializeCup() {
+		diceInCup = new Die[amountOfDice];
+		
+		int middleLimit = greenDice + yellowDice;
+		
+		for(int i = 0; i < diceInCup.length; i++) {
+			
+			if(i < greenDice) {
+			
+				diceInCup[i] = new Die(Die.DieType.GREEN);
+			
+			}else if(i < middleLimit){
+			
+				diceInCup[i] = new Die(Die.DieType.YELLOW);
+			
+			}
+			else {
+			
+				diceInCup[i] = new Die(Die.DieType.RED);
+			
+			}
+		}
+	}
+
+}

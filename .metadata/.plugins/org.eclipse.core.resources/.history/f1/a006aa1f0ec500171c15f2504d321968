@@ -1,0 +1,15 @@
+package testZone;
+
+import models.DiceCup;
+import models.Die;
+
+public class Program {
+
+	public static void start() {
+		
+		DiceCup.getDiceFromCup();
+		System.out.println(DiceCup.getDiceLeftInCup());
+		
+		
+	}
+}

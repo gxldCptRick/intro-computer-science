@@ -1,0 +1,114 @@
+package controllers;
+
+import enums.Branch;
+import enums.MonsterDifficulty;
+import models.monsters.BugBear;
+import models.monsters.Goblin;
+import models.monsters.base.Monster;
+
+public class PrisonerOfAlkaTraz extends Quest {
+
+	public PrisonerOfAlkaTraz(GameMaster gm) {
+		super(gm, "Prisoner Of AlkaTraz");
+
+	}
+
+	public void run() {
+		phaseOne();
+	}
+
+	private void phaseOne() {
+		String[] openningScene = {"You Walk across the bridge and Enter the castle...",
+								  "As you enter you see yourself surrounded by cages and traps that all seem to be empty.",
+								  "At the end of it all you see a sealed metal door covered in blood.",
+								  "What would you like to do?"};
+
+		String[] choices = {"Try to open the door.", "Look around to see more.", "Run Away"};
+
+		String[][] resultOpening = { {}, {}, {} }, results = { {}, {}, {}, {}, {}, {} };
+
+		int[] chances = { 30, 40, 60 };
+
+		Monster[] currentEnemies = setEnemies(MonsterDifficulty.MEDIUM, 4);
+
+		Branch currentDecision = findBranch3(openningScene, choices, resultOpening, results, chances, currentEnemies);
+
+		switch (currentDecision) {
+
+		case SIDE_QUEST:
+
+			lootRoom2();
+
+			phaseTwo();
+
+			break;
+
+		case NEXT_PHASE:
+
+			lootRoom1();
+			
+			phaseTwo();
+
+			break;
+
+		case FINAL_PHASE:
+
+			break;
+
+		default:
+			System.out.println("You lose...");
+			break;
+		}
+	}
+
+	private void phaseTwo() {
+
+		String[] openningScene = {};
+
+		String[] choices = {};
+
+		String[][] resultOpening = { {}, {}, {} }, results = { {}, {}, {}, {}, {}, {} };
+
+		int[] chances = { 30, 40, 60 };
+
+		Monster[] currentEnemies = setEnemies(MonsterDifficulty.MEDIUM, 3);
+
+		Branch currentDecision = findBranchUltimatum(openningScene, choices, resultOpening, results, chances, currentEnemies);
+
+		switch (currentDecision) {
+
+		case NEXT_PHASE:
+
+			finalPhase();
+
+			break;
+
+		case FINAL_PHASE:
+			System.out.println("You are filled with determination.");
+			break;
+
+		default:
+
+			System.out.println("You lose...");
+
+			break;
+		}
+	}
+
+	private void finalPhase() {
+
+	}
+
+	private void lootRoom1() {
+
+		this.sarah.dropItems(new BugBear());
+
+	}
+
+	private void lootRoom2() {
+
+		this.sarah.dropItems(new Goblin());
+
+	}
+
+}

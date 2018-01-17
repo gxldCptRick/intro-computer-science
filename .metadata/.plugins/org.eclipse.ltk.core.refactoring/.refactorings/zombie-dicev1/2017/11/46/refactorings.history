@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;models.DIe&apos; to &apos;Die&apos;&#x0D;&#x0A;- Original project: &apos;zombie-dicev1&apos;&#x0D;&#x0A;- Original element: &apos;models.DIe&apos;&#x0D;&#x0A;- Renamed element: &apos;models.Die&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;DIe&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;models{DIe.java[DIe" matchStrategy="1" name="Die" qualified="false" references="true" similarDeclarations="false" stamp="1510695792246" textual="false" version="1.0"/>
+</session>

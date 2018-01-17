@@ -1,0 +1,185 @@
+package app;
+
+public class Fraction {
+	private int numerator = 0, denominator = 0, wholeNum = 0;
+	private double decimalValue = .2;
+	// getters
+	public double getDecimalVal() {
+	
+		return decimalValue;
+	
+	}
+	
+	public int getNum() {
+	
+		return numerator;
+	
+	}
+	
+	public int getDen() 
+	{
+		return denominator;
+	}
+	
+	public int getWholeNum() {
+	
+		return wholeNum;
+		
+	}
+// public methods	
+// this specifically is the way fractions appear as strings.
+	public boolean equals(Fraction temp) {
+		return ((this.numerator == temp.numerator) && (this.denominator == temp.denominator) && (this.wholeNum == temp.wholeNum));
+	}
+	public String toString() {
+		if(this.wholeNum != 0)
+		return ( this.wholeNum + " " + this.numerator + "/" + this.denominator);
+		
+		return (this.numerator  + "/" + this.denominator);
+	}
+	public void simplify() {
+		
+		if(numerator > denominator) {
+						
+			wholeNum = numerator / denominator + wholeNum;
+			if((numerator % denominator) != 0) {
+				numerator = numerator % denominator;
+			}
+		
+		}
+		
+		checkForSimple(2);
+		
+		checkForSimple(3);
+	
+		checkForSimple(5);
+	
+		checkForSimple(7);
+		
+		
+		
+	}
+	// constructor method
+	public Fraction (int num, int dem, int whole) throws ArithmeticException{
+		
+		numerator = num;
+		if(dem == 0)
+			throw new ArithmeticException();
+		denominator = dem;
+		
+		wholeNum = whole;
+		
+		decimalValue = ((double) num)/dem + wholeNum;
+		
+		
+	}
+	// methods for fraction math
+	public void add(Fraction frac1) {
+		
+		int num, dem;
+		
+		if(frac1.getDen() == this.denominator) {
+			
+			num = this.denominator + frac1.getDen();
+		
+		}
+		
+		else {
+			
+			dem = this.denominator * frac1.getDen();
+			
+			num = frac1.getNum() * this.denominator + this.numerator * frac1.getDen();
+			
+			this.denominator = dem;
+			
+		}
+		
+		
+		this.numerator = num;
+		
+		this.wholeNum = this.wholeNum + frac1.getWholeNum();
+		
+		this.simplify();
+		
+		
+		
+	}
+	
+	public void subtract(Fraction frac1)  {
+				
+				int num, dem;
+				
+				if(frac1.getDen() == this.denominator) {
+					
+					num = this.denominator - frac1.getDen();
+					
+				}
+				
+				else {
+					
+					dem = this.denominator * frac1.getDen();
+					
+					num = frac1.getNum() * this.denominator - this.numerator * frac1.getDen();
+					
+					this.denominator = dem;
+					
+				}
+				
+				
+				this.numerator = num;
+				
+				this.wholeNum = this.wholeNum - frac1.getWholeNum();
+				
+				this.simplify();
+				
+				
+				
+	}
+	
+	public void multiply(Fraction frac1)  {
+		
+		int wholeNumFraction, fracWholeNum, fracNum;
+		
+		wholeNumFraction = this.wholeNum * this.denominator;
+		
+		this.numerator += wholeNumFraction;
+		
+		fracWholeNum = frac1.getDen() * frac1.getNum();
+		
+		fracNum = fracWholeNum + frac1.getNum();
+		
+		this.numerator *= fracNum;
+		
+		this.denominator *= frac1.getDen();
+		
+	}
+	
+	public void divide(Fraction frac1) {
+		
+		int wholeNumFraction, fracWholeNum, fracNum;
+		
+		wholeNumFraction = this.wholeNum * this.denominator;
+		
+		this.numerator += wholeNumFraction;
+		
+		fracWholeNum = frac1.getNum() * frac1.getWholeNum();
+		
+		fracNum = fracWholeNum + frac1.getDen();
+		
+		this.numerator *= fracNum;
+		
+		this.denominator *= frac1.getNum();
+		
+	}
+	// used to make simplification easy
+	private void checkForSimple(int degree) {
+		
+		while(((numerator % degree) == 0)&&((denominator % degree) == 0) && ((numerator != 1) && (denominator !=1))) {
+			
+			numerator /= degree;
+			
+			denominator /= degree;
+			
+		}
+	}
+}

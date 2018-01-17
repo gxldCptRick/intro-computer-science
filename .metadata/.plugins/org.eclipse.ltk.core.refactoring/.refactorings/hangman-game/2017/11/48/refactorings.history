@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;controllers.HangManGame.replaceTheString(...)&apos; to &apos;checkGuess&apos;&#x0D;&#x0A;- Original project: &apos;hangman-game&apos;&#x0D;&#x0A;- Original element: &apos;controllers.HangManGame.replaceTheString(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;controllers.HangManGame.checkGuess(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;replaceTheString&apos;" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;controllers{HangManGame.java[HangManGame~replaceTheString~QString;" name="checkGuess" references="true" stamp="1512051939785" version="1.0"/>
+</session>

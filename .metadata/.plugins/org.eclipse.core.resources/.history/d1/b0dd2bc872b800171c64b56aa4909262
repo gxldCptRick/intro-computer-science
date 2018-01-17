@@ -1,0 +1,12 @@
+package scratch;
+
+import andresIO.AIO;
+
+public class scratch {
+
+	public static void main(String[] args) {
+		String[] foodMenu = {"Bomb Burgers", "Dope Fries", "Deep Fried Fat", "ALL THE CHICKEN", "CAT FOOD"};
+		
+		AIO.menu(foodMenu);
+	}
+}

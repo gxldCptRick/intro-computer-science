@@ -1,0 +1,32 @@
+package test1;
+
+import lib.ConsoleIO;
+
+public class Program {
+	
+	
+	public static void run() {
+
+		String[] HangMan = {"(0)","/|\\", "/ \\"};
+		
+		rebuildHangMan();
+		
+	}
+	
+	private static void rebuildHangMan() {
+		
+	}
+	
+	private static void buildHangMan(String[] hangMan) {
+		
+		
+		for(String body : hangMan) {
+			System.out.println(body);
+			ConsoleIO.waitForInput();
+		}
+
+	}
+	
+	
+
+}

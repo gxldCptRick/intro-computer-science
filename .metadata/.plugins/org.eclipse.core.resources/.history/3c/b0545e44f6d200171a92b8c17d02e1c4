@@ -1,0 +1,69 @@
+package controllers;
+
+import java.util.Random;
+
+import models.monsters.Beholder;
+import models.monsters.BugBear;
+import models.monsters.Goblin;
+import models.monsters.base.Monster;
+
+public class MainCampaign {
+
+	private Monster[] listOfMonsters = new Monster[3];
+
+	private static Random rnJesus = new Random();
+
+	private GameMaster sarah;
+
+	{
+		int str, dex, intel, i = 0;
+
+		str = rnJesus.nextInt(20) + 1;
+		dex = rnJesus.nextInt(10) + 6;
+		intel = rnJesus.nextInt(5) + 1;
+
+		listOfMonsters[i++] = new Goblin(str, dex, intel);
+
+		str = rnJesus.nextInt(30) + 1;
+		dex = rnJesus.nextInt(25) + 1;
+		intel = rnJesus.nextInt(10) + 1;
+
+		listOfMonsters[i++] = new BugBear(str, dex, intel);
+
+		str = rnJesus.nextInt(25) + 1;
+		dex = rnJesus.nextInt(10) + 1;
+		intel = rnJesus.nextInt(50) + 10;
+
+		listOfMonsters[i++] = new Beholder(str, dex, intel);
+	}
+
+	public MainCampaign(GameMaster gm) {
+
+		sarah = gm;
+
+	}
+
+	public void runCampaign() {
+
+		
+		
+	}
+	
+	private void phaseOne() {
+		
+		System.out.println("You Finally Arrived.");
+		System.out.println("Castle Black...");
+		System.out.println("You have come to slay the mighty beast that has plagued the land.");
+		System.out.println("As you approach the castles wall you see two goblins manning the draw bridge.");
+		System.out.println("");
+		String[] choices = {"Walk Into The Castle", "Look Around The Gates", ""};
+	}
+	
+	private void phaseTwo() {
+		
+	}
+	
+	private void finalPhase() {
+		
+	}
+}

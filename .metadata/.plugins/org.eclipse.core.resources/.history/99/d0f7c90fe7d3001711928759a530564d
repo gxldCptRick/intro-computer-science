@@ -1,0 +1,25 @@
+package test1;
+
+import lib.ConsoleIO;
+
+public class Program {
+	
+	
+	public static void run() {
+
+		String[] HangMan = {"(0)","/|\\", "/ \\"};
+		
+		buildHangMan();
+		
+	}
+	
+	private static void buildHangMan() {
+		
+		
+		
+
+	}
+	
+	
+
+}

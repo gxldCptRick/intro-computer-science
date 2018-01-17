@@ -1,0 +1,149 @@
+package controllers;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+import lib.ConsoleIO;
+import models.monsters.Beholder;
+import models.monsters.BugBear;
+import models.monsters.Goblin;
+import models.monsters.base.Monster;
+
+public class MainCampaign {
+
+	private Monster[] listOfMonsters = new Monster[3];
+
+	private static Random rnJesus = new Random();
+
+	private GameMaster sarah;
+
+	{
+		int str, dex, intel, i = 0;
+
+		str = rnJesus.nextInt(20) + 1;
+		dex = rnJesus.nextInt(10) + 6;
+		intel = rnJesus.nextInt(5) + 1;
+
+		listOfMonsters[i++] = new Goblin(str, dex, intel);
+
+		str = rnJesus.nextInt(30) + 1;
+		dex = rnJesus.nextInt(25) + 1;
+		intel = rnJesus.nextInt(10) + 1;
+
+		listOfMonsters[i++] = new BugBear(str, dex, intel);
+
+		str = rnJesus.nextInt(25) + 1;
+		dex = rnJesus.nextInt(10) + 1;
+		intel = rnJesus.nextInt(50) + 10;
+
+		listOfMonsters[i++] = new Beholder(str, dex, intel);
+	}
+
+	public MainCampaign(GameMaster gm) {
+
+		sarah = gm;
+
+	}
+
+	public void runCampaign() {
+
+		phaseOne();
+		
+	}
+	
+	private void phaseOne() {
+		List<String> textBlock = Arrays.asList("You Finally Arrived.", "Castle Black...",
+				"You have come to slay the mighty beast that has plagued the land.", "As you approach the castles wall you see two goblins manning the draw bridge.",
+				"One of the goblins yell out \"who goes there? \"", "What would you like to do?");
+		String[] choices = {"Answer the Goblins", "Look around the castle gates.", "Turn Tail and run away."};
+		
+		boolean success = false, fightSuccessful = true;
+		
+		displayTextBlock(textBlock);
+		
+		
+		int choice = ConsoleIO.promptForMenuSelection(choices, false), chance;
+		
+		switch(choice) {
+		
+		case 1:
+			textBlock = Arrays.asList("What Would You like to tell them?");
+			choices = new String[] {"My name is Esteban Julio Ricardo Montoya de la Rosa Ramírez.\n I am here to murder you.", 
+					"I am a simple trader trying to sell my goods in these keep.",
+					"I am your father and you will come down this instant!!!!!",
+					"I don't care about you I need to fight your Boss"};
+			displayTextBlock(textBlock);
+			choice = ConsoleIO.promptForMenuSelection(choices, false);
+			chance = rnJesus.nextInt(100) + 1;
+			
+			switch(choice) {
+			case 1:
+				success = chance < 11;
+				break;
+				
+			case 2:
+				success = chance < 31;
+				break;
+				
+			case 3:
+				success = chance < 100;
+				if(success) {
+					textBlock = Arrays.asList("Okay dad im sorry i yelled.", "The goblin lowers the bridge, walks across and hugs.");
+				}else {
+					textBlock = Arrays.asList("You aint my dad.", "im gonna kill you.", "The one Goblin Lowers the Bridge and attacks you");
+				}
+				displayTextBlock(textBlock);
+				
+				if(success) {
+					phaseTwo();
+				}
+				else {
+				fightSuccessful = sarah.runEncounter(listOfMonsters[0]);
+				
+				if(fightSuccessful) {
+					phaseTwo();
+				}
+					
+					
+				}
+				break;
+				
+			case 4:
+				
+				break;
+				
+			default:
+				throw new IllegalArgumentException("You said the wrong thing and know you can't keep going");
+			}
+			
+			break;
+			
+		case 2:
+			break;
+			
+		case 3:
+			break;
+			
+		default: 
+			throw new IllegalArgumentException("You went through the scary door. that was a very bad idea.");
+		}
+		
+	}
+	
+	private void phaseTwo() {
+		
+	}
+	
+	private void finalPhase() {
+		
+	}
+	
+	private void displayTextBlock(List<String> textBlock) {
+		for(String textLine : textBlock) {
+			
+			System.out.println(textLine);
+		
+		}
+	}
+}

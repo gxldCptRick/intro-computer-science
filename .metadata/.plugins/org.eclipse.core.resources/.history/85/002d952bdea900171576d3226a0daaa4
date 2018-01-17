@@ -1,0 +1,18 @@
+package app;
+
+public class Book {
+	public String title = "";
+	public int pages = 0;
+	public String genre = "";
+	
+	public void read() {
+		
+		
+	}
+	public Book(String titleOfBook, int numOfPages, String genre) {
+		this.title = titleOfBook;
+		this.pages = numOfPages;
+		this.genre = genre;
+		
+	}
+}

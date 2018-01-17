@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="models.Die.DieColor"/>
+<fullyQualifiedTypeName name="views.Player"/>
+<fullyQualifiedTypeName name="models.DiceCup"/>
+<fullyQualifiedTypeName name="models.Die"/>
+<fullyQualifiedTypeName name="models.Die.DieFace"/>
+<fullyQualifiedTypeName name="enums.Suite"/>
+<fullyQualifiedTypeName name="enums.Rank"/>
+<fullyQualifiedTypeName name="enums.Suit"/>
+<fullyQualifiedTypeName name="enums.DieFace"/>
+<fullyQualifiedTypeName name="enums.DieColor"/>
+<fullyQualifiedTypeName name="test1.Program"/>
+<fullyQualifiedTypeName name="enums.Attribute"/>
+<fullyQualifiedTypeName name="enums.characters.Bonus"/>
+<fullyQualifiedTypeName name="models.characters.interfaces.Droppable"/>
+<fullyQualifiedTypeName name="java.nio.file.Files"/>
+<fullyQualifiedTypeName name="java.nio.file.Paths"/>
+<fullyQualifiedTypeName name="java.nio.file.Path"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.nio.charset.Charset"/>
+<fullyQualifiedTypeName name="java.nio.file.StandardOpenOption"/>
+<fullyQualifiedTypeName name="models.items.Weapon"/>
+<fullyQualifiedTypeName name="enums.Spells.Spell"/>
+<fullyQualifiedTypeName name="models.monsters.interfaces.MagicUser"/>
+<fullyQualifiedTypeName name="enums.Spells.SpellType"/>
+<fullyQualifiedTypeName name="controllers.HangManGame"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="lib.ConsoleIO"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="interfaces.Awesomeable"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+</qualifiedTypeNameHistroy>

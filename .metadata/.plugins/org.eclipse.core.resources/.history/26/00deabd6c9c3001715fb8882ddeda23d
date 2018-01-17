@@ -1,0 +1,68 @@
+package models;
+
+import java.util.Random;
+
+public class Dice {
+
+	private Random d6DiceRoll = new Random();
+	private DieValue value = null;
+	private DieType difficutly = null;
+
+	public enum DieValue {
+		BRAIN, SHOT, RUN
+	}
+
+	public enum DieType {
+		GREEN, RED, YELLOW
+	}
+
+	public DieValue rollDice() {
+
+		int currentRoll = this.d6DiceRoll.nextInt(6);
+
+		findDieValue(currentRoll);
+
+		return this.value;
+	}
+
+	private void findDieValue(int value) {
+
+		if (this.difficutly != null) {
+
+			switch (this.difficutly) {
+			
+			case GREEN:
+				if(value >= 0 && value < 3) {
+					this.value = DieValue.BRAIN;
+				}
+				else if(value >= 3 && value < 5){
+					this.value = DieValue.RUN;
+				}
+				else if(value == 5) {
+					this.value = DieValue.SHOT;
+				}
+				break;
+				
+			case YELLOW:
+				break;
+				
+			case RED:
+				break;
+				
+			default:
+				break;
+			}
+		} else {
+
+			throw new NullPointerException("Dice Difficulty cannot be null.");
+		}
+
+	}
+
+	public Dice(DieType currentType) {
+
+		this.difficutly = currentType;
+
+	}
+
+}

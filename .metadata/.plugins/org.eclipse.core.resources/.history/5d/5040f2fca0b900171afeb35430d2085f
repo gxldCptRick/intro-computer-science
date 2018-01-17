@@ -1,0 +1,25 @@
+package phoneNumbers;
+
+import exceptions.InvalidPhoneNumberException;
+
+public class PhoneNumberUS {
+public boolean isValidLong(String longo) {
+	try {
+		Long.parseLong(longo);
+		return true;
+	}catch(NumberFormatException e){
+		return false;
+	}
+}
+public PhoneNumberUS(String rawNum) throws InvalidPhoneNumberException{
+	long littleYahtty = 0L;
+	if(isValidLong(rawNum)) {
+	 littleYahtty = Long.parseLong(rawNum);
+	}
+	
+	if(littleYahtty > 1000000000L && littleYahtty < 9999999999L) {
+		throw new InvalidPhoneNumberException("Phone number must Contain at least 10 unique Values");
+	}
+	
+}
+}

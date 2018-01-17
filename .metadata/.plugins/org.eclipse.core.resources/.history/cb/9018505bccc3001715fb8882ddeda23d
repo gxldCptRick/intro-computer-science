@@ -1,0 +1,20 @@
+package models;
+
+import java.util.Random;
+
+public class DiceCup {
+	
+	private static Random randomNumberGenerator; 
+
+	private static Dice grabNewDice() {
+		int newNum = randomNumberGenerator.nextInt(100) + 1;
+		Dice newDie = null;
+		
+		
+		
+		
+		return newDie;
+	
+	}
+	
+}

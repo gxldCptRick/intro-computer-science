@@ -1,0 +1,87 @@
+package controllers;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import lib.ConsoleIO;
+import models.Card;
+import models.Dealer;
+
+public class Game {
+
+	private Dealer joffery = new Dealer();
+
+	private List<Card> cardsDealt = new ArrayList<Card>();
+
+	private Card[] cardsJustDrawn;
+	
+	public void run() {
+
+		startGame();
+
+	}
+
+	private void startGame() {
+
+		boolean gameActive = true;
+
+		boolean shuffle = false;
+
+		boolean deckEmpty = true;
+		setup();
+
+		do {
+			drawCards();
+
+			printCardsDrawn();
+			
+			deckEmpty = cardsDealt.contains(null);
+
+			if (deckEmpty) {
+
+				System.out.println("The deck is empty...");
+				
+				
+			}
+
+			
+			
+			if (deckEmpty) {
+			
+				shuffle = ConsoleIO.promptForBool("Would You like to reshuffle the Deck and draw five more cards? (Y/N)", "Y", "N");
+				
+				gameActive = shuffle;
+			
+			}else {
+				
+				gameActive = ConsoleIO.promptForBool("Would you like to draw five more Cards? (Y/N)", "Y", "N");
+				
+			}
+
+			if (shuffle) {
+			
+				joffery.shuffleDeck();
+			
+			}
+
+		} while (gameActive);
+
+	}
+
+	private void setup() {
+		joffery.shuffleDeck();
+
+		String message = joffery.stringOfDeck();
+
+		System.out.println(message);
+	}
+
+	private void drawCards() {
+
+		cardsJustDrawn = joffery.dealCards(5);
+		List<Card> tempList = Arrays.asList(cardsJustDrawn); 
+		cardsDealt.addAll(tempList);
+
+	}
+}

@@ -1,0 +1,52 @@
+package scratch;
+
+import java.util.Scanner;
+
+public class scratch {
+
+	public static void main(String[] args) {
+		Scanner scanLee = new Scanner(System.in);
+		int selection = 0;
+		
+		
+		System.out.println("1. (name)");
+		System.out.println("2. (date)");
+		System.out.println("3. (activity)");
+		
+		switch(selection) {
+		
+		case 1:
+		
+			System.out.println("name");
+		
+			break;
+		
+		case 2:
+			
+			System.out.println("date");
+			
+			break;
+		
+		case 3:
+	
+			System.out.println("activity");
+			
+			break;
+		
+		case 24: 
+		
+			System.out.println("Twenty-fo fo sho");
+			
+			break;
+		
+		default: 
+			
+			System.out.println("Wrong Choice");
+		}
+		
+		
+		
+		
+
+	}
+}

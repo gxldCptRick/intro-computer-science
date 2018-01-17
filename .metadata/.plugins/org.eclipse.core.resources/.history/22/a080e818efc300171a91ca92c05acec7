@@ -1,0 +1,35 @@
+package models;
+
+import java.util.Random;
+
+public class DiceCup {
+
+	private static Random randomNumberGenerator;
+
+	public static Dice grabNewDice() {
+		int newNum = randomNumberGenerator.nextInt(100) + 1;
+		Dice newDie = null;
+
+		if (newNum > 0 && newNum < 47) {
+
+			newDie = new Dice(Dice.DieType.GREEN);
+
+		}
+
+		else if (newNum >= 47 && newNum < 78) {
+
+			newDie = new Dice(Dice.DieType.YELLOW);
+
+		}
+
+		else {
+
+			newDie = new Dice(Dice.DieType.RED);
+
+		}
+
+		return newDie;
+
+	}
+
+}

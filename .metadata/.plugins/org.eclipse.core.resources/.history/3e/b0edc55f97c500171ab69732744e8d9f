@@ -1,0 +1,102 @@
+package models;
+
+import java.util.Random;
+
+public class Die {
+
+	private Random d6DiceRoll = null;
+	private DieValue value = null;
+	private final DieType difficutly;
+	private DieValue[] dieValues = new DieValue[6]; 
+	private boolean inUse = false;
+	private static int maxId = 0;
+	private final int _ID;
+
+	public int getId() {
+		
+		return _ID;
+	
+	}
+	
+	
+	public enum DieValue {
+		BRAIN, SHOT, RUN;
+	}
+
+	public enum DieType {
+		GREEN, RED, YELLOW
+	}
+
+	public void rollDice() {
+
+		int currentRoll = this.d6DiceRoll.nextInt(6);
+
+		this.value = dieValues[currentRoll];
+
+	}
+	
+	public boolean getUseState() {
+		
+		return inUse;
+		
+	}
+	
+	public void setUse() {
+		
+		if(this.inUse) {
+		
+			this.inUse = false;
+		
+		}
+		else {
+			
+			this.inUse = true;
+		
+		}
+		
+	}
+	
+	public DieValue getDieValue() {
+		
+		return this.value; 
+
+	}
+	
+	public DieType getDifficutly() {
+		
+		return this.difficutly;
+	
+	}
+
+	
+	private void setDieRange() {
+		switch(difficutly) {
+		
+		case GREEN:
+			dieValues = new DieValue[]{DieValue.BRAIN, DieValue.BRAIN, DieValue.BRAIN, DieValue.RUN, DieValue.RUN, DieValue.SHOT};
+			break;
+			
+		case RED:
+			dieValues = new DieValue[]{DieValue.BRAIN, DieValue.BRAIN, DieValue.RUN, DieValue.RUN, DieValue.SHOT, DieValue.SHOT};
+			break;
+			
+		case YELLOW:
+			dieValues = new DieValue[] {DieValue.BRAIN, DieValue.SHOT, DieValue.SHOT, DieValue.RUN, DieValue.RUN, DieValue.RUN};
+			break;
+		
+		default:
+			break;
+		}
+		
+	}
+	
+	public Die(DieType currentType) {
+		
+		this.difficutly = currentType;
+		this.d6DiceRoll = new Random();
+		this._ID = Die.maxId;
+		Die.maxId++;
+		setDieRange();
+	}
+
+}

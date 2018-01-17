@@ -1,0 +1,111 @@
+package controllers;
+
+import enums.Branch;
+import enums.MonsterDifficulty;
+import models.monsters.BugBear;
+import models.monsters.base.Monster;
+
+public class PrisonerOfAlkaTraz extends Quest {
+
+	public PrisonerOfAlkaTraz(GameMaster gm) {
+		super(gm, "Prisoner Of AlkaTraz");
+
+	}
+
+	public void run() {
+		phaseOne();
+	}
+
+	private void phaseOne() {
+		String[] openningScene = { "Finally inside" };
+
+		String[] choices = {};
+
+		String[][] resultOpening = {{},{},{},{}}, results = { {}, {}, {}, {}, {}, {}, {}, {} };
+
+		int[] chances = { 30, 40, 60, 10 };
+
+		Monster[] currentEnemies = setEnemies(MonsterDifficulty.MEDIUM,4);
+
+		Branch currentDecision = findBranch4(openningScene, choices, resultOpening, results, chances, currentEnemies);
+
+		switch (currentDecision) {
+
+		case SIDE_QUEST:
+			
+			lootRoom();
+			
+			break;
+
+		case NEXT_PHASE:
+
+			phaseTwo();
+
+			break;
+
+		case FINAL_PHASE:
+
+			break;
+
+		default:
+			System.out.println("You lose...");
+			break;
+		}
+	}
+	
+	private void phaseTwo() {
+
+		String[] openningScene = { "Finally inside" };
+
+		String[] choices = {};
+
+		String[][] resultOpening = {{},{},{},{},{}}, results = { {}, {}, {}, {}, {}, {}, {}, {} };
+
+		int[] chances = { 30, 40, 60, 10 };
+
+		Monster[] currentEnemies = setEnemies(MonsterDifficulty.MEDIUM,5);
+
+		Branch currentDecision = findBranch5(openningScene, choices, resultOpening, results, chances, currentEnemies);
+
+		switch (currentDecision) {
+
+		case SIDE_QUEST:
+			
+			lootRoom();
+			
+			break;
+
+		case NEXT_PHASE:
+
+			finalPhase();
+
+			break;
+
+		case FINAL_PHASE:
+
+			break;
+
+		default:
+			
+			System.out.println("You lose...");
+			
+			break;
+		}
+	}
+	
+	private void finalPhase() {
+		
+	}
+	
+	private void lootRoom1() {
+		
+		this.sarah.dropItems(new BugBear());
+	
+	}
+	
+	private void lootRoom2() {
+		
+		
+	}
+
+}

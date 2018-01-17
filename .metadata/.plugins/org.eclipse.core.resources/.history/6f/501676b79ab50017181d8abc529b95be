@@ -1,0 +1,14 @@
+package numberGuessingGame;
+
+public class Program {
+
+	public static void start() {
+		
+	}
+	
+	public static void main(String[] args) {
+		start();
+
+	}
+
+}

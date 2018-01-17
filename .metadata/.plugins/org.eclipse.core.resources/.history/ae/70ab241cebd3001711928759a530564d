@@ -1,0 +1,27 @@
+package test1;
+
+import lib.ConsoleIO;
+
+public class Program {
+	
+	
+	public static void run() {
+
+		String[] HangMan = {"   ___","   |  |","   | (0)","   | /|\\", "   | / \\","   |","___|___","KILL YOURSELF!!!!"};
+		
+		buildHangMan(HangMan);
+		
+	}
+	
+	private static void buildHangMan(String[] hangMan) {
+		
+		
+		for(String body : hangMan) {
+			System.out.println(body);
+		}
+
+	}
+	
+	
+
+}

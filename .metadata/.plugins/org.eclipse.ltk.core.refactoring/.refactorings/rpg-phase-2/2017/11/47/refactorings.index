@@ -1,0 +1,31 @@
+1511367546525	Delete element
+1511370462162	Move compilation unit
+1511370491409	Move compilation unit
+1511370494938	Move compilation unit
+1511370550572	Move compilation unit
+1511394542244	Rename local variable 'pot'
+1511396628579	Move compilation unit
+1511396635419	Move compilation unit
+1511396853117	Rename type 'Types'
+1511408565951	Delete element
+1511416677960	Rename method 'start'
+1511418159104	Rename field 'intiative'
+1511418216451	Rename local variable 'roll'
+1511457756452	Rename local variable 'damage'
+1511458068956	Rename local variable 'attack'
+1511464738559	Rename local variable 'pots'
+1511539619397	Rename local variable 'bonus'
+1511539628020	Rename local variable 'attr'
+1511542646309	Delete element
+1511542658418	Move compilation unit
+1511542889750	Rename type 'IDrops'
+1511544434898	Rename method 'displayTurnInfo'
+1511549219484	Rename package 'enums.characters'
+1511549279364	Rename package 'enums.monsters'
+1511549301995	Rename package 'models.characters'
+1511549322095	Rename package 'models.characters.base'
+1511549336887	Rename package 'models.characters.interfaces'
+1511549410617	Delete element
+1511551098859	Delete element
+1511552522390	Rename method 'generatePotionsDrops'
+1511552741153	Move compilation unit

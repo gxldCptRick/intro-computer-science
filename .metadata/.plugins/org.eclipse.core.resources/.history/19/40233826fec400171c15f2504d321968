@@ -1,0 +1,16 @@
+package testZone;
+
+import models.Dice;
+
+public class Program {
+
+	public static void start() {
+		
+		System.out.println(Dice.DieValue.BRAIN.toString());
+		
+		System.out.println(Dice.DieValue.RUN.toString());
+		
+		System.out.println(Dice.DieValue.SHOT.toString());
+		
+	}
+}

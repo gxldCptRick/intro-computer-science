@@ -1,0 +1,33 @@
+package scratch;
+
+import java.util.Scanner;
+
+public class scratch {
+
+	private static Scanner scanLee = new Scanner(System.in);
+
+	
+	public static void main(String[] args) {
+		
+		
+		for(int i = 0; i < 10; i++) {
+			System.out.println(i+1);
+		}
+	}
+}
+/*	// most common loop ever write
+		//syntax complicated
+		//print 1-10 in sequence each num on line
+		
+		for(int i = 0; i <= 100; i += 5) {
+			
+			System.out.println(i);
+			
+		}
+		
+		
+	}
+}*/
+		
+		
+	

@@ -1,0 +1,123 @@
+package numberGuessingGame;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Program {
+
+	public static BufferedReader buffyTheVampireSlayer = new BufferedReader(new InputStreamReader(System.in));
+
+	public static boolean isInt(String num) {
+		try {
+
+			Integer.parseInt(num);
+
+			return true;
+
+		} catch (NumberFormatException e) {
+
+			System.out.println("not a number");
+			return false;
+
+		}
+	}
+
+	public static String menu() throws IOException {
+		String input;
+		System.out.println("Welcome to the Number Guessing Game!!!!" + "\n");
+		System.out.println("Please Select your difficulty" + "\n(1) Easy \nGuess a number between 1-10"
+				+ "\n(2) Medium \nGuess a number between 1-50" + "\n(3)");
+		return "";
+	}
+
+	public static void game(String setting) throws IOException {
+		int randoNum = 0, guess = 0, attempts = 5;
+		int[] numGuessed = new int[attempts - 1];
+		String message = null;
+		
+		switch(setting) {
+		
+		case "easy":
+			randoNum = (int) Math.floor(Math.random() * 10);
+			message = "Pick a number between 1-10";
+			break;
+		
+		case "medium":
+			randoNum = (int) Math.floor(Math.random() * 50);
+			message = "Pick a number between 1-50";
+			break;
+		
+		case "hard":
+			randoNum = (int) Math.floor(Math.random() * 100);
+			message = "Pick a number between 1-100";
+			break;
+		
+		default:
+			break;
+		}
+		
+		do {
+			System.out.println(message);
+			
+		}while(attempts > 0);
+	}
+
+	public static void start() throws IOException {
+		int inputNum;
+		boolean active = true, validInput;
+		String input = null, mode = "";
+		do {
+
+			input = menu();
+
+			validInput = input != null;
+
+			if (validInput) {
+
+				validInput = isInt(input);
+
+				if (validInput) {
+
+					inputNum = Integer.parseInt(input);
+
+					switch (inputNum) {
+					case 1:
+						mode = "easy";
+						break;
+					case 2:
+						mode = "medium";
+						break;
+					case 3:
+						mode = "hard";
+						break;
+					default:
+						System.out.println("please Select a valid menu item");
+						break;
+
+					}
+					
+					game(mode);
+					
+					
+				} else {
+					active = true;
+					System.out.println("Please input a valid number");
+				}
+			}
+
+		} while (active);
+
+	}
+
+	public static void main(String[] args) {
+		try {
+			start();
+		} catch (IOException e) {
+			System.out.println(e);
+			System.out.println("Im sorry we ran into an unexpected error. \ntry restarting the program.");
+		}
+
+	}
+
+}
